@@ -8,18 +8,14 @@ class Controller
     {
         try {
             if (isset($_GET['controller'])) {
-                switch ($_GET['controller']) {
-                    case 'page':
-                        //charger controleur page
-                        $controller = new PageController();
-                        $controller->route();
-                        break;
-                    case 'auth':
-                    
-                    default:
-                        throw new \Exception("Le controleur n'existe pas");
-                        break;
-                }
+                match ($_GET['controller']) {
+                    //charger controleur page
+                    'page' => [
+                        $controller = new PageController(),
+                        $controller->route(),
+                    ],
+                    default =>  throw new \Exception("Le controleur n'existe pas"),
+                };
             } else {
                 //Chargement la page d'accueil si pas de controleur dans l'url
                 $controller = new PageController();

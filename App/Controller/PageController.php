@@ -9,15 +9,11 @@ class PageController extends Controller
     {
         try {
             if (isset($_GET['action'])) {
-                switch ($_GET['action']) {
-                    case 'home':
-                        //charger controleur home
-                        $this->home();
-                        break;
-                    default:
-                        throw new \Exception("Cette action n'existe pas : " . $_GET['action']);
-                        break;
-                }
+                match ($_GET['action']) {
+                    //charger controleur home
+                    'home' => $this->home(),
+                    default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
+                };
             } else {
                 throw new \Exception("Aucune action détectée");
             }
