@@ -1,0 +1,56 @@
+services:
+    php:
+        build:
+            context: ./conf/php
+            dockerfile: Dockerfile
+        container_name: php8
+        ports:
+            - '8080:80'
+        volumes:
+            # on met la config apache dans le container au bon endroit apache sous le nom 000-default.conf
+            - ./conf/php/php.ini:/usr/local/etc/php/php.ini
+            - ./conf/apache2/default.conf:/etc/apache2/sites-enabled/000-default.conf
+            # on transmet les infos de config locales dans le conteneur (ex: ajouter des images)
+            - .:/var/www
+
+        networks:
+            - local_network
+        depends_on:
+            - db
+
+    db:
+        image: mariadb:10.5
+        container_name: mariadb10
+        environment:
+            MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+            MYSQL_DATABASE: $MYSQL_DATABASE
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+        ports:
+            - '3306:3306'
+        volumes:
+           
+            - ./conf/mariadb:/var/lib/mysql:delegated
+        networks:
+            - local_network
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin10
+        environment:
+            PMA_ARBITRARY: $PMA_ARBITRARY
+            PMA_HOST: $PMA_HOST
+            PMA_USER: $PMA_USER
+            PMA_PASSWORD: $PMA_PASSWORD
+            UPLOAD_LIMIT: $UPLOAD_LIMIT
+        ports:
+            - '8899:80'
+        depends_on:
+            - db
+        networks:
+            - local_network
+
+networks:
+    local_network:
+        driver: bridge
+# docker-compose up -d
