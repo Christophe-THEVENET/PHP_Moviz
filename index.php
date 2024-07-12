@@ -1,3 +1,10 @@
 <?php
+define('_ROOTPATH_', __DIR__);
+spl_autoload_register();
 
-echo 'Hello World !';
+use App\Controller\Controller;
+
+
+
+$controller = new Controller();
+$controller->route();

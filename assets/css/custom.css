@@ -38,3 +38,22 @@
 .rate.enabled > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+body {
+    min-height: 100vh;
+    background-color: rgba(230, 237, 235, 0.564);
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container main {
+    flex: 2;
+}

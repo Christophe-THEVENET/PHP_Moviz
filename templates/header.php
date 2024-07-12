@@ -38,4 +38,4 @@
             </div>
         </header>
 
-        <main>
+        <main class="p-5">
