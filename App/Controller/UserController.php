@@ -54,7 +54,7 @@ class UserController extends Controller
 
                     $userRepository->persist($user);
                     $messages[] = 'Inscription réussie !';
-                   /*  header('Location: index.php?controller=auth&action=login'); */
+                    header('Location: index.php?controller=auth&action=login'); 
                 }
             }
 

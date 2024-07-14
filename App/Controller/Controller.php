@@ -18,6 +18,10 @@ class Controller
                         $controller = new UserController(),
                         $controller->route(),
                     ],
+                    'auth' => [
+                        $controller = new AuthController(),
+                        $controller->route(),
+                    ],
                     default =>  throw new \Exception("Le controleur n'existe pas"),
                 };
             } else {
