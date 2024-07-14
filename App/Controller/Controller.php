@@ -14,6 +14,10 @@ class Controller
                         $controller = new PageController(),
                         $controller->route(),
                     ],
+                    'user' => [
+                        $controller = new UserController(),
+                        $controller->route(),
+                    ],
                     default =>  throw new \Exception("Le controleur n'existe pas"),
                 };
             } else {
