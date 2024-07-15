@@ -21,6 +21,12 @@ class Controller
                     'auth' => [
                         $controller = new AuthController(),
                         $controller->route(),
+
+                    ],
+                    'admin' => [
+                        $controller = new AdminController(),
+                        $controller->route(),
+
                     ],
                     default =>  throw new \Exception("Le controleur n'existe pas"),
                 };
@@ -54,4 +60,5 @@ class Controller
             ]);
         }
     }
+  
 }

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Db\Mysql;
 use App\Repository\UserRepository;
+use App\Security\Security;
 
 class AuthController extends Controller
 {
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
             $user = $userRepository->findOneByEmail($_POST['email']);
 
-            if ($user && $user->verifyPassword($_POST['password'])) {
+            if ($user && Security::verifyPassword($_POST['password'], $user)) {
                 // Regénère l'id session pour éviter la fixation de session
                 session_regenerate_id(true);
                 $_SESSION['user'] = [
@@ -46,7 +46,8 @@ class AuthController extends Controller
                     'roles' => $user->getRoles(),
                 ];
 
-                header('location: index.php');
+                Security::isAdmin() ? header('location: index.php?controller=admin&action=admin')  : header('location: index.php');
+
             } else {
                 $errors[] = 'Email ou mot de passe incorrect';
             }
@@ -56,7 +57,6 @@ class AuthController extends Controller
             'errors' => $errors,
         ]);
     }
-
 
     protected function logout()
     {
