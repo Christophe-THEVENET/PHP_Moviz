@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use PDO;
 
 class UserRepository extends Repository
 {
@@ -56,17 +57,44 @@ class UserRepository extends Repository
 
 
 
-    public function findAll()
+    public function findAll(int $limit = null, int $page = null): array|bool
     {
-        $query = $this->pdo->prepare("SELECT * FROM user");
+
+        $sql = "SELECT * FROM user ORDER BY user.id DESC";
+
+        if ($limit && !$page) {
+            $sql .= " LIMIT  :limit";
+        }
+        if ($limit && $page) {
+            $sql .= " LIMIT :offest, :limit";
+        }
+
+        $query = $this->pdo->prepare($sql);
+
+        if ($limit) {
+            $query->bindValue(":limit", $limit, PDO::PARAM_INT);
+        }
+        if ($page) {
+            $offset = ($page - 1) * $limit;
+            $query->bindValue(":offest", $offset, PDO::PARAM_INT);
+        }
+
         $query->execute();
+/* 
+        $query = $this->pdo->prepare("SELECT * FROM user");
+        $query->execute(); */
         $users = $query->fetchAll($this->pdo::FETCH_ASSOC);
+        $usersArray = [];
         if ($users) {
-            return $users;
+            foreach ($users as $user) {
+                $usersArray[] = User::createAndHydrate($user);
+            }
+            return $usersArray;
         } else {
             return false;
         }
     }
+
 
 
 

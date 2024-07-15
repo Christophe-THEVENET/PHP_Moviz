@@ -55,30 +55,38 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
         </header>
 
         <!--  display flex sur les pages admin pour la sidebar a gauche -->
-        <main class="p-5 <?= (isset($_GET['controller']) && ($_GET['controller'] == 'admin')) ? 'd-flex align-items-around' : '' ?>">
+        <main class="p-5 admin-container <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
             <?php
 
             // ********************************** si admin => sidebar **********************************
             if (isset($_GET['controller']) && $_GET['controller'] == 'admin') { ?>
                 <!-- ------------   sidebar ---------------- -->
-                <div class="d-flex flex-column flex-shrink-0 p-3 m-2 text-bg-dark" style="width: 220px;">
+                <div class="sidebar__title  d-flex flex-column flex-shrink-0 p-3 m-2 text-bg-dark" style="width: 220px;">
                     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span class="fs-4 sidebar__title">Administration</span>
                     </a>
                     <hr>
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
-                        <li class="nav-item">
                             <a href="<?= Security::navigateTo('page', 'home') ?>" class="nav-link <?= NavigationTools::addActiveClass('page', 'home') ?>" aria-current="page">
                                 <i class="bi bi-gear-wide me-2"></i>
                                 Acceuil site
                             </a>
                         </li>
-                        <a href="<?= Security::navigateTo('admin', 'admin') ?>" class="nav-link <?= NavigationTools::addActiveClass('admin', 'admin') ?>" aria-current="page">
-                            <i class="bi bi-house me-2"></i>
-                            Acceuil admin
-                        </a>
+                        <li class="nav-item">
+                            <a href="<?= Security::navigateTo('admin', 'admin') ?>" class="nav-link <?= NavigationTools::addActiveClass('admin', 'admin') ?>" aria-current="page">
+                                <i class="bi bi-house me-2"></i>
+                                Acceuil admin
+                            </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="<?= Security::navigateTo('admin', 'users') ?>" class="nav-link <?= NavigationTools::addActiveClass('admin', 'users') ?>" aria-current="page">
+                                <i class="bi bi-house me-2"></i>
+                                Utilisateurs
+                            </a>
+                        </li>
+
+
 
                         <li>
                             <a href="" class="nav-link  <?= basename($_SERVER['SCRIPT_NAME']) === 'articles.php' ? 'active' : "" ?>">
@@ -94,9 +102,9 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                         </li>
                     </ul>
                     <hr>
-                    <?php if (isset($_SESSION['user'])) { ?>
+                    <?php if (Security::isAdmin()) { ?>
                         <div class="dropdown">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" class="d-flex  align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
                                 <strong> <?= $userNickname ?> </strong>
                             </a>

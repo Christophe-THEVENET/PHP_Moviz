@@ -5,6 +5,7 @@ require_once 'config.php';
 
 use App\Repository\UserRepository;
 use App\Entity\User;
+use App\Security\Security;
 use App\Security\UserValidator;
 
 class UserController extends Controller
@@ -15,7 +16,6 @@ class UserController extends Controller
             if (isset($_GET['action'])) {
                 match ($_GET['action']) {
                     'register' =>  $this->register(),
-                        /*  'delete' => */ // Appeler méthode delete(),
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {
@@ -64,4 +64,32 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function usersList()
+    {
+        try {
+            if (Security::isLogged() && Security::isAdmin()) {
+                $errors = [];
+                $messages = [];
+
+                $userRepository = new UserRepository();
+                $users = $userRepository->findAll();
+
+                $this->render('admin/users-list', [
+
+                    'errors' => $errors,
+                    'messages' => $messages,
+                    'users' => $users,
+                ]);
+            } else {
+                header('location:' . Security::navigateTo('page', 'home'));
+            }
+        } catch (\Exception $e) {
+            $this->render('errors/default', [
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+
 }

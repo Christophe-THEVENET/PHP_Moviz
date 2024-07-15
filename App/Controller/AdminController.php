@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Security\Security;
+use App\Controller\UserController;
+
+
 require_once 'config.php';
 
 
@@ -13,6 +17,10 @@ class AdminController extends Controller
             if (isset($_GET['action'])) {
                 match ($_GET['action']) {
                     'admin' =>  $this->admin(),
+                    'users' => [
+                        $userController = new UserController(),
+                        $userController->usersList(),
+                    ],
                         /*  'delete' => */ // Appeler méthode delete(),
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
@@ -29,33 +37,18 @@ class AdminController extends Controller
     protected function admin()
     {
         try {
-            $errors = [];
-            $messages = [];
-          /*   $user = new User();
-            $userValidator = new UserValidator(); */
+            if (Security::isLogged() && Security::isAdmin()) {
+                $errors = [];
+                $messages = [];
 
-            if (isset($_POST['saveUser'])) {
+                $this->render('admin/admin', [
 
-            /*     $user->hydrate($_POST);
-                $user->setRoles(ROLE_USER); */
-/* 
-                $errors = $userValidator->validate($user); */
-
-                if (empty($errors)) {
-                  /*   $userRepository = new UserRepository();
-
-                    $userRepository->persist($user); */
-                    $messages[] = 'Inscription réussie !';
-                    header('Location: index.php?controller=auth&action=login');
-                }
+                    'errors' => $errors,
+                    'messages' => $messages,
+                ]);
+            } else {
+                header('location:' . Security::navigateTo('page', 'home'));
             }
-
-            $this->render('admin/admin', [
-                'user' => '',
-                'pageTitle' => 'Inscription',
-                'errors' => $errors,
-                'messages' => $messages,
-            ]);
         } catch (\Exception $e) {
             $this->render('errors/default', [
                 'error' => $e->getMessage()

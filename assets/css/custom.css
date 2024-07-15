@@ -57,3 +57,20 @@ body {
 .container main {
     flex: 2;
 }
+
+.admin-title-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    
+}
+
+@media screen and (max-width: 936px) {
+
+.admin-container {
+    flex-direction: column;
+
+}
+
+}
