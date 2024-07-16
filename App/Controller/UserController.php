@@ -7,6 +7,8 @@ use App\Repository\UserRepository;
 use App\Entity\User;
 use App\Security\Security;
 use App\Security\UserValidator;
+use App\Controller\AuthController;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -38,6 +40,8 @@ class UserController extends Controller
 
             if (isset($_POST['saveUser'])) {
 
+                         
+                
                 $user->hydrate($_POST);
                 $user->setRoles(ROLE_USER);
                 
@@ -48,7 +52,12 @@ class UserController extends Controller
 
                     $userRepository->persist($user);
                     $messages[] = 'Inscription réussie !';
-                    header('Location: index.php?controller=auth&action=login'); 
+
+                    $_POST['loginUser'] = $_POST['saveUser'];
+                    $authController = new AuthController();
+                    $authController->login();
+
+
                 }
             }
 

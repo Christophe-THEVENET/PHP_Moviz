@@ -40,7 +40,7 @@ require_once dirname(__DIR__) . '/header.php';
         <?php } ?>
     </div>
 
-    <input type="submit" name="saveUser" class="btn btn-primary" value="Enregistrer">
+    <input type="submit" name="saveUser" class="btn btn-primary btn-sm" value="S'inscrire">
 
 </form>
 

@@ -26,7 +26,7 @@ class AuthController extends Controller
         }
     }
 
-    protected function login()
+    public function login()
     {
         $errors = [];
 
@@ -46,7 +46,7 @@ class AuthController extends Controller
                     'roles' => $user->getRoles(),
                 ];
 
-                Security::isAdmin() ? header('location: index.php?controller=admin&action=admin')  : header('location: index.php');
+                Security::isAdmin() ? header('location:' . Security::navigateTo('admin', 'admin'))  : header('location: index.php');
 
             } else {
                 $errors[] = 'Email ou mot de passe incorrect';

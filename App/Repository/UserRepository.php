@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use DateTime;
 use PDO;
 
 class UserRepository extends Repository
@@ -43,8 +44,7 @@ class UserRepository extends Repository
             $query->bindValue(':id', $user->getId(), $this->pdo::PARAM_INT);
         } else {
             $query = $this->pdo->prepare(
-                'INSERT INTO user (nickname, email, password, roles) VALUES (:nickname, :email, :password, :roles)'
-            );
+                "INSERT INTO user (nickname, email, password, roles, created_at) VALUES (:nickname, :email, :password, :roles, NOW())");
             $query->bindValue(':roles', $user->getRoles(), $this->pdo::PARAM_STR);
         }
 

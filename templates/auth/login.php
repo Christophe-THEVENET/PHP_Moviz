@@ -20,7 +20,7 @@
             <input type="password" class="form-control" id="password" name="password">
         </div>
 
-        <input type="submit" name="loginUser" class="btn btn-primary" value="Se connecter">
+        <input type="submit" name="loginUser" class="btn btn-primary btn-sm" value="Se connecter">
 
 </form>
 

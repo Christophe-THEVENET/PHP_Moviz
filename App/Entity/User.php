@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use DateTime;
+
 class User extends Entity
 {
     protected ?int $id = null;
@@ -9,6 +11,8 @@ class User extends Entity
     protected ?string $password = '';
     protected ?string $nickname = '';
     protected ?string $roles = '';
+    protected ?string $createdAt = null;
+
 
     public function getId(): ?int
     {
@@ -84,4 +88,24 @@ class User extends Entity
         return $this;
     }
 
+
+    /**
+     * Get the value of createdAt
+     */ 
+    public function getCreatedAt(): ?string
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set the value of createdAt
+     *
+     * @return  self
+     */ 
+    public function setCreatedAt(?string $createdAt):self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 }

@@ -39,23 +39,24 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <a href="/?controller=movie&action=list" class="nav-link px-2 ">Les films</a>
                 </li>
             </ul>
-            <div class="col-md-3 text-end">
+            <div class="col-md-4 d-flex justify-content-end align-items-baseline">
 
                 <?php if (Security::isLogged()) { ?>
-                    <a href="/index.php?controller=auth&action=logout" class="btn btn-primary">Déconnexion</a>
+                    <span class="m-2">Bienvenue <?= $userNickname ?></span>
+                    <a href="/index.php?controller=auth&action=logout" class="btn btn-primary btn-sm m-1">Déconnexion</a>
                     <?php if (Security::isAdmin()) { ?>
-                        <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2  <?= NavigationTools::addActiveClass('asmin', 'admin') ?>">Administration</a>
+                        <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 <?= NavigationTools::addActiveClass('asmin', 'admin') ?>">Administration</a>
                     <?php }
                 } else { ?>
-                    <a href="/index.php?controller=auth&action=login" class="btn btn-outline-primary me-2  <?= NavigationTools::addActiveClass('auth', 'login') ?>">Connexion</a>
-                    <a href="/index.php?controller=user&action=register" class="btn btn-outline-primary me-2 <?= NavigationTools::addActiveClass('user', 'register') ?>">Inscription</a>
+                    <a href="/index.php?controller=auth&action=login" class="btn btn-outline-primary me-2 btn-sm <?= NavigationTools::addActiveClass('auth', 'login') ?>">Connexion</a>
+                    <a href="/index.php?controller=user&action=register" class="btn btn-outline-primary me-2 btn-sm <?= NavigationTools::addActiveClass('user', 'register') ?>">Inscription</a>
                 <?php } ?>
             </div>
 
         </header>
 
         <!--  display flex sur les pages admin pour la sidebar a gauche -->
-        <main class="p-5 admin-container <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
+        <main class=" admin-container <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
             <?php
 
             // ********************************** si admin => sidebar **********************************
