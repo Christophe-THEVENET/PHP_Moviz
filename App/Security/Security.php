@@ -36,7 +36,7 @@ class Security
         return (isset($_SESSION['user']) && isset($_SESSION['user']['id'])) ? $_SESSION['user']['id'] : false;
     }
 
-    public static function navigateTo($controller, $action): string
+    public static function navigateTo(string $controller, string $action): string
     {
         return 'index.php?controller=' . $controller . '&action=' . $action;
     }

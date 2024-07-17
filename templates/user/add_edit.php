@@ -7,7 +7,6 @@ require_once dirname(__DIR__) . '/header.php';
 ?>
 
 <h1><?= $pageTitle; ?></h1>
-
 <?php foreach ($messages as $message) { ?>
     <div class="alert alert-success">
         <?= $message; ?>
@@ -15,6 +14,8 @@ require_once dirname(__DIR__) . '/header.php';
 <?php } ?>
 
 <form method="POST">
+    
+
 
     <div class="mb-3">
         <label for="nickname" class="form-label">Pseudo</label>

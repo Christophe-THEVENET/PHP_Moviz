@@ -43,9 +43,11 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
 
                 <?php if (Security::isLogged()) { ?>
                     <span class="m-2">Bienvenue <?= $userNickname ?></span>
-                    <a href="/index.php?controller=auth&action=logout" class="btn btn-primary btn-sm m-1">Déconnexion</a>
+                    <a href="/index.php?controller=auth&action=logout" class="btn btn-outline-primary btn-sm m-1">Déconnexion</a>
                     <?php if (Security::isAdmin()) { ?>
-                        <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 <?= NavigationTools::addActiveClass('asmin', 'admin') ?>">Administration</a>
+                        <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 
+                        <?=$_GET['controller'] === 'admin' ? 'active' : '' ?>
+                        ">Administration</a>
                     <?php }
                 } else { ?>
                     <a href="/index.php?controller=auth&action=login" class="btn btn-outline-primary me-2 btn-sm <?= NavigationTools::addActiveClass('auth', 'login') ?>">Connexion</a>
@@ -70,13 +72,13 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <ul class="nav nav-pills flex-column mb-auto">
                         <li class="nav-item">
                             <a href="<?= Security::navigateTo('page', 'home') ?>" class="nav-link <?= NavigationTools::addActiveClass('page', 'home') ?>" aria-current="page">
-                                <i class="bi bi-gear-wide me-2"></i>
+                                <i class="bi bi-house me-2"></i>
                                 Acceuil site
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?= Security::navigateTo('admin', 'admin') ?>" class="nav-link <?= NavigationTools::addActiveClass('admin', 'admin') ?>" aria-current="page">
-                                <i class="bi bi-house me-2"></i>
+                                <i class="bi bi-gear-wide me-2"></i>
                                 Acceuil admin
                             </a>
                         </li>

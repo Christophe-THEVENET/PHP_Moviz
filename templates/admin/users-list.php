@@ -1,18 +1,37 @@
 <?php
 
+use App\Security\Security;
 use App\Tools\DateFrench;
 
+
+
 require_once dirname(__DIR__) . "/header.php";
-
-
-
 ?>
 
 <section class="w-100 mx-3">
     <div class="admin-title-button">
         <h1>Utilisateurs</h1>
-        <button type="button" class="btn btn-secondary btn-sm">Ajouter un utilisateur</button>
+        <!-- <a href="index.php?controller=admin&action=user"> -->
+        <a href="<?= Security::navigateTo('admin', 'user') ?>">
+            <button type="button" class="btn btn-secondary btn-sm">Ajouter un utilisateur</button>
+        </a>
     </div>
+
+
+    <?php
+
+    if (isset($_SESSION['messages'])) {
+        $messages = $_SESSION['messages'];
+        // Display the messages
+        foreach ($messages as $key => $message) { ?>
+            <div id="message-<?= $key; ?>" class="alert alert-success message">
+                <?= $message; ?>
+            </div>
+    <?php
+            unset($_SESSION['messages']);
+        }
+    } ?>
+
 
     <!---------------  table users list -------------- -->
     <table class="table">
@@ -39,7 +58,7 @@ require_once dirname(__DIR__) . "/header.php";
                     <td><?= $user->getRoles() ?></td>
                     <td><?= $userCreatedAtFormated ?></td>
                     <td class="logo-article">
-                        <a href="article.php<?= $user->getId() ? '?id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page">
+                        <a href="<?= Security::navigateTo('admin', 'user') ?><?= $user->getId() ? '&id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page">
                             <i class="bi bi-box-arrow-in-up-left me-2"></i>
                         </a>
                         <a href="article_delete.php<?= $user->getId() ? '?id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">

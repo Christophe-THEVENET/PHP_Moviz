@@ -96,6 +96,13 @@ class UserRepository extends Repository
     }
 
 
+    public function getTotalUser(): int|bool
+    {
+        $query = $this->pdo->prepare("SELECT COUNT(*) as total FROM user");
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
 
 
 

@@ -1,16 +1,20 @@
 <?php
 
-use App\Security\Security;
+use App\Repository\UserRepository;
 
 require_once dirname(__DIR__) . "/header.php";
 
 $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
 
+$userRepository = new UserRepository();
+
+$totalUsers = $userRepository->getTotalUser(); 
+
 ?>
 
 <section class="w-100 mx-3">
     <h1>Bienvenu <?= $userNickname ?></h1>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos sint laboriosam dicta eum eveniet autem qui? Modi, id saepe dolores obcaecati optio vel quibusdam dicta! Distinctio eius impedit aliquam numquam.</p>
+    <p>Il y a actuellement <?= $totalUsers ?> utilisateurs inscrits sur le site</p>
 </section>
 
 <?php
