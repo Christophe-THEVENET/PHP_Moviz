@@ -188,4 +188,58 @@ class UserController extends Controller
             ]);
         }
     }
+
+    public function userDelete()
+    {
+        try {
+            if (Security::isLogged() && Security::isAdmin()) {
+                $errors = [];
+                $messages = [];
+                $user = false;
+
+
+                // ***************** get user for delete ********************
+                if (isset($_GET['id'])) {
+
+                    $userRepository = new UserRepository();
+                    $user = $userRepository->findOneById($_GET['id']);
+
+                    if ($user === false) {
+                        $errors[] = "L'utilisateur n\'existe pas";
+                    }
+                }
+
+                // ***************** delete user ********************
+                if (isset($user)) {
+
+                    $res = $userRepository->delete($user);
+
+                    if ($res) {
+                        $messages[] = "L'utilisateur a bien été supprimé";
+                    } else {
+                        $errors[] = "Problème pour supprimer l'utilisateur";
+                    }
+
+
+                    $_SESSION['messages'] = $messages;
+                    $_SESSION['errors'] = $errors;
+                    header('location:' . Security::navigateTo('admin', 'users'));
+                }
+
+
+                /*  $this->render('admin/user-add-update', [
+
+                    'errors' => $errors,
+                    'messages' => $messages,
+                    'user' => $user,
+                ]); */
+            } else {
+                header('location:' . Security::navigateTo('page', 'home'));
+            }
+        } catch (\Exception $e) {
+            $this->render('errors/default', [
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
 }

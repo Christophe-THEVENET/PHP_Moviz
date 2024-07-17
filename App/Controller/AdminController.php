@@ -25,7 +25,10 @@ class AdminController extends Controller
                         $userController = new UserController(),
                         $userController->userAddUpdate(),
                     ],
-                        /*  'delete' => */ // Appeler méthode delete(),
+                    'user-delete' => [
+                        $userController = new UserController(),
+                        $userController->userDelete(),
+                    ],
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {

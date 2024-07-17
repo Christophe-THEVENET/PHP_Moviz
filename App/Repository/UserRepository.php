@@ -55,8 +55,6 @@ class UserRepository extends Repository
         return $query->execute();
     }
 
-
-
     public function findAll(int $limit = null, int $page = null): array|bool
     {
 
@@ -80,9 +78,7 @@ class UserRepository extends Repository
         }
 
         $query->execute();
-/* 
-        $query = $this->pdo->prepare("SELECT * FROM user");
-        $query->execute(); */
+
         $users = $query->fetchAll($this->pdo::FETCH_ASSOC);
         $usersArray = [];
         if ($users) {
@@ -95,7 +91,6 @@ class UserRepository extends Repository
         }
     }
 
-
     public function getTotalUser(): int|bool
     {
         $query = $this->pdo->prepare("SELECT COUNT(*) as total FROM user");
@@ -104,6 +99,19 @@ class UserRepository extends Repository
         return $result['total'];
     }
 
+    function delete(User $user): bool
+    {
+
+        $query = $this->pdo->prepare("DELETE FROM user WHERE id = :id");
+        $query->bindValue(':id', $user->getId(), $this->pdo::PARAM_INT);
+
+        $query->execute();
+        if ($query->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }

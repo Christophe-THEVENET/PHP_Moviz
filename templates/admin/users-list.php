@@ -18,8 +18,7 @@ require_once dirname(__DIR__) . "/header.php";
     </div>
 
 
-    <?php
-
+    <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {
         $messages = $_SESSION['messages'];
         // Display the messages
@@ -32,6 +31,18 @@ require_once dirname(__DIR__) . "/header.php";
         }
     } ?>
 
+    <?php // ****** errors messages ********
+    if (isset($_SESSION['errors'])) {
+        $errors = $_SESSION['errors'];
+        // Display the messages
+        foreach ($errors as $key => $error) { ?>
+            <div id="error-<?= $key; ?>" class="alert alert-danger error">
+                <?= $error; ?>
+            </div>
+    <?php
+            unset($_SESSION['messages']);
+        }
+    } ?>
 
     <!---------------  table users list -------------- -->
     <table class="table">
@@ -61,7 +72,7 @@ require_once dirname(__DIR__) . "/header.php";
                         <a href="<?= Security::navigateTo('admin', 'user') ?><?= $user->getId() ? '&id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page">
                             <i class="bi bi-box-arrow-in-up-left me-2"></i>
                         </a>
-                        <a href="article_delete.php<?= $user->getId() ? '?id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                        <a href="<?= Security::navigateTo('admin', 'user-delete') ?><?= $user->getId() ? '&id=' . $user->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
                             <i class=" bi bi-x-square me-2"></i>
                         </a>
                     </td>
