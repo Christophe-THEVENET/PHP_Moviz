@@ -46,7 +46,7 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <a href="/index.php?controller=auth&action=logout" class="btn btn-outline-primary btn-sm m-1">Déconnexion</a>
                     <?php if (Security::isAdmin()) { ?>
                         <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 
-                        <?=$_GET['controller'] === 'admin' ? 'active' : '' ?>
+                        <?= $_GET['controller'] === 'admin' ? 'active' : '' ?>
                         ">Administration</a>
                     <?php }
                 } else { ?>
@@ -88,13 +88,10 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                                 Utilisateurs
                             </a>
                         </li>
-
-
-
                         <li>
-                            <a href="" class="nav-link  <?= basename($_SERVER['SCRIPT_NAME']) === 'articles.php' ? 'active' : "" ?>">
+                            <a href="<?= Security::navigateTo('admin', 'genres') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'genres') ?>">
                                 <i class="bi-table bi pe-none me-2"></i>
-                                Articles
+                                Genres
                             </a>
                         </li>
                         <li>

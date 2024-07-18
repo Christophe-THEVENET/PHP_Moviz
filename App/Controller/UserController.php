@@ -9,7 +9,6 @@ use App\Entity\User;
 use App\Security\Security;
 use App\Security\UserValidator;
 use App\Controller\AuthController;
-use DateTime;
 
 class UserController extends Controller
 {

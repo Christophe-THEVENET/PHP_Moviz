@@ -11,7 +11,7 @@
 
 </div>
 
-<script>
+<!-- <script>
     // remove success message auto
     document.addEventListener("DOMContentLoaded", () => {
         const messages = document.querySelectorAll(".message");
@@ -37,9 +37,9 @@
             }, 2000); // 5000 milliseconds = 5 seconds
         });
     });
-</script>
+</script> -->
 
-
+<script src="../assets/js/main.js"></script>
 </body>
 
 </html>

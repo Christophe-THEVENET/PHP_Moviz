@@ -29,6 +29,18 @@ class AdminController extends Controller
                         $userController = new UserController(),
                         $userController->userDelete(),
                     ],
+                    'genres' => [
+                        $genreController = new GenreController(),
+                        $genreController->genresList(),
+                    ],
+                    'genre' => [
+                        $genreController = new GenreController(),
+                        $genreController->genreAddUpdate(),
+                    ],
+                    'genre-delete' => [
+                        $genreController = new GenreController(),
+                        $genreController->genreDelete(),
+                    ],
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {
