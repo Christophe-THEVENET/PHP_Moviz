@@ -10,64 +10,7 @@ use App\Security\Security;
 
 class GenreController extends Controller
 {
-    /*  public function route(): void
-    {
-        try {
-            if (isset($_GET['action'])) {
-                match ($_GET['action']) {
-                    'register' =>  $this->register(),
-                    default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
-                };
-            } else {
-                throw new \Exception("Aucune action détectée");
-            }
-        } catch (\Exception $e) {
-            $this->render('errors/default', [
-                'error' => $e->getMessage()
-            ]);
-        }
-    } */
-
-    /* protected function register()
-    {
-        try {
-            $errors = [];
-            $messages = [];
-            $genre = new User();
-            $genreValidator = new UserValidator();
-
-            if (isset($_POST['saveUser'])) {
-
-                $genre->hydrate($_POST);
-                $genre->setRoles(ROLE_USER);
-
-                $errors = $genreValidator->validate($genre);
-
-                if (empty($errors)) {
-                    $GenreRepository = new GenreRepository();
-
-                    $GenreRepository->persist($genre);
-                    $messages[] = 'Inscription réussie !';
-
-                    $_POST['loginUser'] = $_POST['saveUser'];
-                    $authController = new AuthController();
-                    $authController->login();
-                }
-            }
-
-            $this->render('user/add_edit', [
-                'user' => '',
-                'pageTitle' => 'Inscription',
-                'errors' => $errors,
-                'messages' => $messages,
-            ]);
-        } catch (\Exception $e) {
-            $this->render('errors/default', [
-                'error' => $e->getMessage()
-            ]);
-        }
-    } */
-
+    
     public function genresList()
     {
         try {

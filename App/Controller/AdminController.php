@@ -41,6 +41,18 @@ class AdminController extends Controller
                         $genreController = new GenreController(),
                         $genreController->genreDelete(),
                     ],
+                    'directors' => [
+                        $directorController = new DirectorController(),
+                        $directorController->directorsList(),
+                    ],
+                    'director' => [
+                        $directorController = new DirectorController(),
+                        $directorController->directorAddUpdate(),
+                    ],
+                    'director-delete' => [
+                        $directorController = new DirectorController(),
+                        $directorController->directorDelete(),
+                    ],
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {

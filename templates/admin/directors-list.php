@@ -7,10 +7,10 @@ require_once dirname(__DIR__) . "/header.php";
 
 <section class="w-100 mx-3">
     <div class="admin-title-button">
-        <h1>Genres</h1>
+        <h1>directors</h1>
         <!-- <a href="index.php?controller=admin&action=user"> -->
-        <a href="<?= Security::navigateTo('admin', 'genre') ?>">
-            <button type="button" class="btn btn-secondary btn-sm">Ajouter un genre</button>
+        <a href="<?= Security::navigateTo('admin', 'director') ?>">
+            <button type="button" class="btn btn-secondary btn-sm">Ajouter un réalisateur</button>
         </a>
     </div>
 
@@ -41,25 +41,29 @@ require_once dirname(__DIR__) . "/header.php";
         }
     } ?>
 
-    <!---------------  table genre list -------------- -->
+    <!---------------  table users list -------------- -->
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Prénom</th>
                 <th scope="col">Nom</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($genres as $genre) {
-                /** @var App\Entity\Genre $genre */ ?>
+            <?php foreach ($directors as $director) {
+
+
+                /** @var App\Entity\Director $director */ ?>
                 <tr>
-                    <th scope="row"><?= $genre->getId() ?></th>
-                    <td><?= $genre->getName() ?></td>
+                    <th scope="row"><?= $director->getId() ?></th>
+                    <td><?= $director->getFirstName() ?></td>
+                    <td><?= $director->getLastName() ?></td>
                     <td class="logo-article">
-                        <a href="<?= Security::navigateTo('admin', 'genre') ?><?= $genre->getId() ? '&id=' . $genre->getId() : '' ?>" class="nav-link" aria-current="page">
+                        <a href="<?= Security::navigateTo('admin', 'director') ?><?= $director->getId() ? '&id=' . $director->getId() : '' ?>" class="nav-link" aria-current="page">
                             <i class="bi bi-box-arrow-in-up-left me-2"></i>
                         </a>
-                        <a href="<?= Security::navigateTo('admin', 'genre-delete') ?><?= $genre->getId() ? '&id=' . $genre->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                        <a href="<?= Security::navigateTo('admin', 'director-delete') ?><?= $director->getId() ? '&id=' . $director->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
                             <i class=" bi bi-x-square me-2"></i>
                         </a>
                     </td>

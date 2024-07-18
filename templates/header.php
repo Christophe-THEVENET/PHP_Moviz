@@ -95,9 +95,9 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                             </a>
                         </li>
                         <li>
-                            <a href="/app/admin/article.php" class="nav-link  <?= basename($_SERVER['SCRIPT_NAME']) === 'article.php' ? 'active' : "" ?>">
-                                <i class="bi bi-plus-square-fill pe-none me-2"></i>
-                                Ajouter un article
+                            <a href="<?= Security::navigateTo('admin', 'directors') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'directors') ?>">
+                                <i class="bi bi-person-video3 me-2"></i>
+                                Réalisateurs
                             </a>
                         </li>
                     </ul>
