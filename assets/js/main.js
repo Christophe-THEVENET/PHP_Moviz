@@ -23,5 +23,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000); // 5000 milliseconds = 5 seconds
     });
 });
-
-console.log('toto');

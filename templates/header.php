@@ -20,9 +20,7 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/override-bootstrap.css">
     <link rel="stylesheet" href="assets/css/custom.css">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
     <title>Moviz</title>
 </head>
 
@@ -40,13 +38,12 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                 </li>
             </ul>
             <div class="col-md-4 d-flex justify-content-end align-items-baseline">
-
                 <?php if (Security::isLogged()) { ?>
                     <span class="m-2">Bienvenue <?= $userNickname ?></span>
                     <a href="/index.php?controller=auth&action=logout" class="btn btn-outline-primary btn-sm m-1">Déconnexion</a>
                     <?php if (Security::isAdmin()) { ?>
                         <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 
-                        <?= $_GET['controller'] === 'admin' ? 'active' : '' ?>
+                        <?php isset($_GET['controller']) && $_GET['controller'] === 'admin' ? 'active' : $_GET['controller'] = '' ?>
                         ">Administration</a>
                     <?php }
                 } else { ?>
@@ -54,11 +51,10 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <a href="/index.php?controller=user&action=register" class="btn btn-outline-primary me-2 btn-sm <?= NavigationTools::addActiveClass('user', 'register') ?>">Inscription</a>
                 <?php } ?>
             </div>
-
         </header>
 
         <!--  display flex sur les pages admin pour la sidebar a gauche -->
-        <main class=" admin-container <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
+        <main class=" <?php isset($_GET['controller']) && $_GET['controller'] === 'admin' ? 'admin-container'  : 'movie-container' ?> <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
             <?php
 
             // ********************************** si admin => sidebar **********************************
@@ -80,6 +76,12 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                             <a href="<?= Security::navigateTo('admin', 'admin') ?>" class="nav-link <?= NavigationTools::addActiveClass('admin', 'admin') ?>" aria-current="page">
                                 <i class="bi bi-gear-wide me-2"></i>
                                 Acceuil admin
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?= Security::navigateTo('admin', 'movies') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'movies') ?>">
+                                <i class="bi bi-film me-2"></i>
+                                Films
                             </a>
                         </li>
                         <li class="nav-item">

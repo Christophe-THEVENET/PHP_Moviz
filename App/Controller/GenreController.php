@@ -13,13 +13,18 @@ class GenreController extends Controller
     
     public function genresList()
     {
+        if (isset($_GET["pages"])) {
+            $pages = (int)$_GET["pages"];
+        } else {
+            $pages = 1;
+        }
         try {
             if (Security::isLogged() && Security::isAdmin()) {
                 $errors = [];
                 $messages = [];
 
                 $GenreRepository = new GenreRepository();
-                $genres = $GenreRepository->findAll();
+                $genres = $GenreRepository->findAll(_ADMIN_ITEM_PER_PAGE_, $pages);
 
                 $this->render('admin/genres-list', [
 

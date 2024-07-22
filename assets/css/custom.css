@@ -1,4 +1,10 @@
 /* Rating */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -69,7 +75,104 @@ body {
 
 .admin-container {
     flex-direction: column;
-
 }
 
+} 
+/* *********** show movie ************** */
+
+.movie-container  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.block-show-movie {
+    max-height: 50rem;
+}
+
+.flux-show-movie {
+    min-height: 50vh!important;
+   }
+   
+.show-movie-img {
+    flex: 2;
+}
+
+
+.show-movie-title {
+    font-family:  'Bebas Neue'!important;
+    color: #D66853!important;
+}
+
+.show-movie-genre {
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    background-color: #7d4e5726;
+    padding: 0.2rem 0.3rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.show-movie-date {
+    font-family: 'Inter';
+    font-size: 1rem;
+    color: #364156;
+}
+
+.show-movie-director {
+    font-family:'Bebas Neue';
+    font-size: 0.8rem;
+    color: #364156;
+}
+
+.show-movie-duration {
+    font-family: 'Inter';
+    font-size: 0.8rem;
+    color: #364156;
+}
+
+
+
+.rate-text {
+font-size: 0.7rem;
+margin-bottom: 0.3rem;
+}
+
+
+/* films */
+.card-item {
+    width: 13rem;
+    font-family: 'Inter';
+    font-size: 0.7rem;
+}
+
+.card-item img {
+    height: 12rem;
+}
+
+.card-item .movie-block {
+    max-width: 20rem;
+}
+
+.card-item .card-title {
+    font-family: 'Bebas Neue';
+}
+
+.card-item .card-body {
+    padding: 0.8rem;
+}
+
+.card-item .card-body a {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+}
+
+section {
+    height: auto;
+}
+
+
+form {
+    min-width: 30rem;
 }

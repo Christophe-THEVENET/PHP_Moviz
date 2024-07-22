@@ -8,11 +8,11 @@ class Movie extends Entity
 {
 
     protected ?int $id = null;
-    protected ?string $title = '';
-    protected ?string $synopsis = '';
-    protected DateTime $release_date;
-    protected DateTime $duration;
-    protected ?string $image_name = '';
+    protected ?string $name = '';
+    protected ?string $synopsys = '';
+    protected ?string $releaseYear;
+    protected ?string $duration;
+    protected ?string $imageName = '';
 
     /**
      * Get the value of id
@@ -35,35 +35,35 @@ class Movie extends Entity
     /**
      * Get the value of title
      */
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
      * Set the value of title
      */
-    public function setTitle(?string $title): self
+    public function setName(?string $name): self
     {
-        $this->title = $title;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get the value of synopsis
+     * Get the value of synopsys
      */
-    public function getSynopsis(): ?string
+    public function getSynopsys(): ?string
     {
-        return $this->synopsis;
+        return $this->synopsys;
     }
 
     /**
-     * Set the value of synopsis
+     * Set the value of synopsys
      */
-    public function setSynopsis(?string $synopsis): self
+    public function setSynopsys(?string $synopsys): self
     {
-        $this->synopsis = $synopsis;
+        $this->synopsys = $synopsys;
 
         return $this;
     }
@@ -71,17 +71,17 @@ class Movie extends Entity
     /**
      * Get the value of release_date
      */
-    public function getReleaseDate(): DateTime
+    public function getReleaseYear(): ?string
     {
-        return $this->release_date;
+        return $this->releaseYear;
     }
 
     /**
      * Set the value of release_date
      */
-    public function setReleaseDate(DateTime $release_date): self
+    public function setReleaseYear(string $releaseYear): self
     {
-        $this->release_date = $release_date;
+        $this->releaseYear = $releaseYear;
 
         return $this;
     }
@@ -89,7 +89,7 @@ class Movie extends Entity
     /**
      * Get the value of duration
      */
-    public function getDuration(): DateTime
+    public function getDuration(): string
     {
         return $this->duration;
     }
@@ -97,7 +97,7 @@ class Movie extends Entity
     /**
      * Set the value of duration
      */
-    public function setDuration(DateTime $duration): self
+    public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 
@@ -109,15 +109,15 @@ class Movie extends Entity
      */
     public function getImageName(): ?string
     {
-        return $this->image_name;
+        return $this->imageName;
     }
 
     /**
      * Set the value of image_name
      */
-    public function setImageName(?string $image_name): self
+    public function setImageName(?string $imageName): self
     {
-        $this->image_name = $image_name;
+        $this->imageName = $imageName;
 
         return $this;
     }

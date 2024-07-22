@@ -13,13 +13,18 @@ class DirectorController extends Controller
     
     public function directorsList()
     {
+        if (isset($_GET["pages"])) {
+            $pages = (int)$_GET["pages"];
+        } else {
+            $pages = 1;
+        }
         try {
             if (Security::isLogged() && Security::isAdmin()) {
                 $errors = [];
                 $messages = [];
 
                 $directorRepository = new DirectorRepository();
-                $directors = $directorRepository->findAll();
+                $directors = $directorRepository->findAll(_ADMIN_ITEM_PER_PAGE_, $pages);
 
                 $this->render('admin/directors-list', [
 

@@ -1,7 +1,8 @@
 <?php
 
-use App\Repository\GenreRepository;
+use App\Repository\MovieRepository;
 use App\Security\Security;
+use App\Tools\DateFrench;
 
 require_once dirname(__DIR__) . "/header.php";
 
@@ -11,21 +12,21 @@ if (isset($_GET["pages"])) {
     $pages = 1;
 }
 
-$genreRepository = new GenreRepository();
-$totalGenres = $genreRepository->getTotalGenre();
+$movieRepository = new MovieRepository();
+$totalMovies = $movieRepository->getTotalMovie();
 // 55/10 => 5.5 => 6 (ceil)
-$totalPages = ceil($totalGenres / _ADMIN_ITEM_PER_PAGE_);
+$totalPages = ceil($totalMovies / _ADMIN_ITEM_PER_PAGE_);
+
 ?>
 
 <section class="w-100 mx-3">
     <div class="admin-title-button">
-        <h1>Genres</h1>
+        <h1>Films</h1>
         <!-- <a href="index.php?controller=admin&action=user"> -->
-        <a href="<?= Security::navigateTo('admin', 'genre') ?>">
-            <button type="button" class="btn btn-secondary btn-sm">Ajouter un genre</button>
+        <a href="<?= Security::navigateTo('admin', 'movie') ?>">
+            <button type="button" class="btn btn-secondary btn-sm">Ajouter un film</button>
         </a>
     </div>
-
 
     <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {
@@ -53,25 +54,41 @@ $totalPages = ceil($totalGenres / _ADMIN_ITEM_PER_PAGE_);
         }
     } ?>
 
-    <!---------------  table genre list -------------- -->
+    <!---------------  table movies list -------------- -->
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Nom</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Date de sortie</th>
+                <th scope="col">Synopsys</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Affiche</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($genres as $genre) {
-                /** @var App\Entity\Genre $genre */ ?>
+            <?php foreach ($movies as $movie) {
+
+                $movieDate = $movie->getReleaseYear();
+                $movieDateFormated = DateFrench::formatDateAdimInFrench($movieDate);
+
+                $movieDuration = $movie->getDuration();
+                $movieDurationFormated = DateFrench::formatHourInFrench($movieDuration);
+
+
+                /** @var App\Entity\Movie $movie */ ?>
                 <tr>
-                    <th scope="row"><?= $genre->getId() ?></th>
-                    <td><?= $genre->getName() ?></td>
+                    <th scope="row"><?= $movie->getId() ?></th>
+                    <td><?= $movie->getName() ?></td>
+                    <td><?= $movieDateFormated ?></td>
+                    <td><?= substr($movie->getSynopsys(), 0, 70) ?></td>
+                    <td><?= $movieDurationFormated ?></td>
+                    <td><img src="<?= $movie->getImagePath()  ?>" alt="" width="40px"></td>
                     <td class="logo-article">
-                        <a href="<?= Security::navigateTo('admin', 'genre') ?><?= $genre->getId() ? '&id=' . $genre->getId() : '' ?>" class="nav-link" aria-current="page">
+                        <a href="<?= Security::navigateTo('admin', 'movie') ?><?= $movie->getId() ? '&id=' . $movie->getId() : '' ?>" class="nav-link" aria-current="page">
                             <i class="bi bi-box-arrow-in-up-left me-2"></i>
                         </a>
-                        <a href="<?= Security::navigateTo('admin', 'genre-delete') ?><?= $genre->getId() ? '&id=' . $genre->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+                        <a href="<?= Security::navigateTo('admin', 'movie-delete') ?><?= $movie->getId() ? '&id=' . $movie->getId() : '' ?>" class="nav-link" aria-current="page" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
                             <i class=" bi bi-x-square me-2"></i>
                         </a>
                     </td>
@@ -86,7 +103,7 @@ $totalPages = ceil($totalGenres / _ADMIN_ITEM_PER_PAGE_);
             <ul class="pagination">
                 <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
                     <li class="page-item <?= ($i === $pages) ? "active" : '' ?>">
-                        <a class="page-link" href="?controller=admin&action=genres&pages=<?= $i; ?>"><?= $i ?></a>
+                        <a class="page-link" href="?controller=admin&action=movies&pages=<?= $i; ?>"><?= $i ?></a>
                     </li>
                 <?php } ?>
             </ul>

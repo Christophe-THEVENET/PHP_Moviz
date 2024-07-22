@@ -1,11 +1,24 @@
 <?php
 
+use App\Repository\UserRepository;
 use App\Security\Security;
 use App\Tools\DateFrench;
 
 
 
 require_once dirname(__DIR__) . "/header.php";
+
+if (isset($_GET["pages"])) {
+    $pages = (int)$_GET["pages"];
+} else {
+    $pages = 1;
+}
+
+$userRepository = new UserRepository();
+$totalUsers = $userRepository->getTotalUser();
+// 55/10 => 5.5 => 6 (ceil)
+$totalPages = ceil($totalUsers / _ADMIN_ITEM_PER_PAGE_);
+
 ?>
 
 <section class="w-100 mx-3">
@@ -80,6 +93,24 @@ require_once dirname(__DIR__) . "/header.php";
             <?php } ?>
         </tbody>
     </table>
+
+
+    <!--------------------  pagination -------------------- -->
+    <?php if ($totalPages > 1) { ?>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                    <li class="page-item <?= ($i === $pages) ? "active" : '' ?>">
+                        <a class="page-link" href="?controller=admin&action=users&pages=<?= $i; ?>"><?= $i ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </nav>
+    <?php } ?>
+    <!----------------------------------------------------- -->
+
+
+
 </section>
 
 <?php

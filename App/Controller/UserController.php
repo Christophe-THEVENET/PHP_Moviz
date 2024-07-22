@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 require_once 'config.php';
 
 use App\Repository\UserRepository;
@@ -72,13 +73,24 @@ class UserController extends Controller
 
     public function usersList()
     {
+
+
+        if (isset($_GET["pages"])) {
+            $pages = (int)$_GET["pages"];
+        } else {
+            $pages = 1;
+        }
+
+
+
+
         try {
             if (Security::isLogged() && Security::isAdmin()) {
                 $errors = [];
                 $messages = [];
 
                 $userRepository = new UserRepository();
-                $users = $userRepository->findAll();
+                $users = $userRepository->findAll(_ADMIN_ITEM_PER_PAGE_, $pages);
 
                 $this->render('admin/users-list', [
 

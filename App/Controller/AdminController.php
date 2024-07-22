@@ -53,6 +53,18 @@ class AdminController extends Controller
                         $directorController = new DirectorController(),
                         $directorController->directorDelete(),
                     ],
+                    'movies' => [
+                        $movieController = new MovieController(),
+                        $movieController->moviesList(),
+                    ],
+                    'movie' => [
+                        $movieController = new MovieController(),
+                        $movieController->movieAddUpdate(),
+                    ],
+                    'movie-delete' => [
+                        $movieController = new MovieController(),
+                        $movieController->movieDelete(),
+                    ],
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {

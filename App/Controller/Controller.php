@@ -9,7 +9,7 @@ class Controller
         try {
             if (isset($_GET['controller'])) {
                 match ($_GET['controller']) {
-                    //charger controleur page
+                    //charger controleur page (acceuil par défaut)
                     'page' => [
                         $controller = new PageController(),
                         $controller->route(),
@@ -25,6 +25,12 @@ class Controller
                     ],
                     'admin' => [
                         $controller = new AdminController(),
+                        $controller->route(),
+ 
+                    ],
+                    // voir le détail d'un film
+                    'movie' => [
+                        $controller = new MovieController(),
                         $controller->route(),
 
                     ],

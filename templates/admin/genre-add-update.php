@@ -28,7 +28,6 @@ require_once dirname(__DIR__) . "/header.php";
         <input type="submit" name="saveGenre" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le genre" <?php } else { ?> value="Ajouter le genre" <?php } ?>>
 
     </form>
-    <!---------------  table users list -------------- -->
 
 </section>
 
