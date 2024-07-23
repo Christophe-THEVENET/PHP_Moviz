@@ -14,6 +14,10 @@ if (isset($_GET["pages"])) {
 
 $movieRepository = new MovieRepository();
 $totalMovies = $movieRepository->getTotalMovie();
+
+
+
+
 // 55/10 => 5.5 => 6 (ceil)
 $totalPages = ceil($totalMovies / _ADMIN_ITEM_PER_PAGE_);
 

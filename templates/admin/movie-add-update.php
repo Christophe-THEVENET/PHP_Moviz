@@ -14,7 +14,7 @@ require_once dirname(__DIR__) . "/header.php";
         </div>
     <?php } ?>
 
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label for="name" class="form-label">Titre</label>
@@ -47,12 +47,16 @@ require_once dirname(__DIR__) . "/header.php";
         <div class="mb-3">
             <label for="duration" class="form-label">Image</label>
 
-            <?php if (isset($_GET['id']) && isset($movie['image_name'])) { ?>
+            <?php if (isset($_GET['id']) && $movie['image_name'] !== '') { ?>
                 <p>
                     <img src="<?= MOVIES_IMAGES_FOLDER . $movie['image_name'] ?>" alt="<?= $movie['name'] ?>" width="100">
                     <label for="delete_image">Supprimer l'image</label>
                     <input type="checkbox" name="delete_image" id="delete_image">
                     <input type="hidden" name="image" value="<?= $movie['image_name']; ?>">
+                </p>
+            <?php } else { ?>
+                <p>
+                    <img src="<?= ASSETS_IMAGES_FOLDER . 'default-movie.png' ?>" alt="<?= $movie['name'] ?>" width="100">
                 </p>
             <?php } ?>
             <p>

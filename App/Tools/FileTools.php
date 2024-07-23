@@ -18,7 +18,8 @@ class FileTools
 
                 if (move_uploaded_file($file["tmp_name"], _ROOTPATH_.$destinationPath . $fileName)) {
                     if ($oldFileName) {
-                        unlink($destinationPath . $oldFileName);
+
+                        unlink(_ROOTPATH_ . $destinationPath . $oldFileName);
                     }
                 } else {
                     $errors['file'] = 'Le fichier n\'a pas été uploadé';

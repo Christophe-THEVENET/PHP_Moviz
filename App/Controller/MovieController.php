@@ -9,6 +9,7 @@ use App\Entity\Movie;
 use App\Repository\DirectorRepository;
 use App\Repository\GenreRepository;
 use App\Security\Security;
+use App\Tools\FileTools;
 
 class MovieController extends Controller
 {
@@ -112,7 +113,7 @@ class MovieController extends Controller
                     'release_year' => '',
                     'synopsys' => '',
                     'duration' => '',
-                    'image_name' => '',
+                    'image_name' => 'null',
 
                 ];
 
@@ -127,10 +128,8 @@ class MovieController extends Controller
                     $genreRepository = new GenreRepository();
                     $genres = $genreRepository->findAllByMovieId($movie->getId());
 
-
                     $directorRepository = new DirectorRepository();
                     $directors = $directorRepository->findAllByMovieId($movie->getId());
-
 
                     $movie = [
                         'id' => $movie->getId(),
@@ -140,16 +139,12 @@ class MovieController extends Controller
                         'duration' => $movie->getDuration(),
                         'image_name' => $movie->getImageName(),
                     ];
-
-
-
-              
-
-
+         
+                                 
                     if ($movie === false) {
                         $errors[] = "Le film n\'existe pas";
                     }
-                    $pageTitle = "Modifier le film: " . $movie['name'];
+                    $pageTitle = "Modifier le film : " . $movie['name'];
                 } else {
                     $pageTitle = "Ajouter un film";
                 }
@@ -158,10 +153,33 @@ class MovieController extends Controller
                 // ***************** save movie ********************
                 if (isset($_POST['saveMovie'])) {
 
+                    // donne un id a la fct hydrate qui update sinon elle crée
                     if (isset($movie['id'])) {
                         $_POST['id'] = $movie['id'];
+
                     };
 
+                    // si un fichier est envoyé 
+                    if ((isset($_FILES['file']['name']) && $_FILES['file']['name'] !== '')) {
+
+                        $filename = FileTools::uploadImage(MOVIES_IMAGES_FOLDER, $_FILES['file'], $movie['image_name']);
+                        $_POST['image_name'] = $filename['fileName'];
+                    } else {
+                        // Si aucun fichier n'a été envoyé
+                        if (isset($_GET['id'])) {
+                            // si on a coché supp image
+                            if (isset($_POST['delete_image'])) {
+                                // Si on a coché la case de suppression d'image, on supprime l'image
+                                unlink(dirname(dirname(__DIR__)) . MOVIES_IMAGES_FOLDER . $movie['image_name']);
+                                $movie['image_name'] = '';
+                            } else {
+                                $_POST['image_name'] = $movie['image_name'];
+                            }
+                        }
+                    }
+                       
+
+              
                     $movieObject = new movie();
                     $movieObject->hydrate($_POST);
 

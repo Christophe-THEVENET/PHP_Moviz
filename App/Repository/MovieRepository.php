@@ -15,7 +15,7 @@ class MovieRepository extends Repository
         $query->execute();
         $movie = $query->fetch($this->pdo::FETCH_ASSOC);
         if ($movie) {
-            return movie::createAndHydrate($movie);
+            return Movie::createAndHydrate($movie);
         } else {
             return false;
         }

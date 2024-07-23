@@ -84,6 +84,10 @@ body {
     margin-bottom: 15vh;
 }
 
+.alert-success {
+    position: absolute;
+}
+
 
 
 /* *********** show movie ************** */
