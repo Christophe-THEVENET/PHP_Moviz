@@ -83,7 +83,7 @@ $totalPages = ceil($totalMovies / _ADMIN_ITEM_PER_PAGE_);
                     <td><?= $movieDateFormated ?></td>
                     <td><?= substr($movie->getSynopsys(), 0, 70) ?></td>
                     <td><?= $movieDurationFormated ?></td>
-                    <td><img src="<?= $movie->getImagePath()  ?>" alt="" width="40px"></td>
+                    <td><img src="<?= $movie->getImagePath()  ?>" alt="" width="30px"></td>
                     <td class="logo-article">
                         <a href="<?= Security::navigateTo('admin', 'movie') ?><?= $movie->getId() ? '&id=' . $movie->getId() : '' ?>" class="nav-link" aria-current="page">
                             <i class="bi bi-box-arrow-in-up-left me-2"></i>

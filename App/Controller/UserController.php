@@ -73,16 +73,11 @@ class UserController extends Controller
 
     public function usersList()
     {
-
-
         if (isset($_GET["pages"])) {
             $pages = (int)$_GET["pages"];
         } else {
             $pages = 1;
         }
-
-
-
 
         try {
             if (Security::isLogged() && Security::isAdmin()) {
@@ -178,11 +173,11 @@ class UserController extends Controller
                             $messages[] = 'Ajout d\'utilisateur réussi !';
                         };
                     }
-                     $_SESSION['messages'] = $messages;
-                header('location:' . Security::navigateTo('admin', 'users')); 
+                    $_SESSION['messages'] = $messages;
+                    header('location:' . Security::navigateTo('admin', 'users'));
                 }
 
-               
+
                 $this->render('admin/user-add-update', [
 
                     'errors' => $errors,

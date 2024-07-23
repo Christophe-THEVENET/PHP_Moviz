@@ -29,6 +29,10 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
     <div class="container">
 
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img src="<?=  ASSETS_IMAGES_FOLDER . '/logo-moviz.png' ?>" alt="" width="150">
+               
+            </a>
             <ul class="nav nav-pills">
                 <li class="nav-item">
                     <a href="/" class="nav-link px-2 ">Accueil</a>
@@ -54,7 +58,7 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
         </header>
 
         <!--  display flex sur les pages admin pour la sidebar a gauche -->
-        <main class=" <?php isset($_GET['controller']) && $_GET['controller'] === 'admin' ? 'admin-container'  : 'movie-container' ?> <?= Security::isAdmin() ? 'd-flex align-items-around ' : '' ?>">
+        <main class=" <?= (isset($_GET['controller']) && $_GET['controller'] == 'admin') ? 'admin-container d-flex align-items-around'  : 'movie-container' ?>">
             <?php
 
             // ********************************** si admin => sidebar **********************************

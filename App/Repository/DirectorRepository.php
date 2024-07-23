@@ -118,4 +118,16 @@ class DirectorRepository extends Repository
 
         return $directorsArray;
     }
+
+    public function linkDirectorsByMovie(int $movie_id, int $director_id)
+    {
+        $query = $this->pdo->prepare('INSERT INTO movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
+        $query->bindParam(':movie_id', $movie_id, $this->pdo::PARAM_STR);
+        $query->bindParam(':director_id', $director_id, $this->pdo::PARAM_STR);
+
+        return $query->execute();
+    }
+
+
+
 }

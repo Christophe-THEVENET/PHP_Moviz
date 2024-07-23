@@ -23,13 +23,7 @@ class Entity
                 // Pour chaque donnée, on appel le setter
                 $methodName = 'set' . StringTools::toPascalCase($key);
                 if (method_exists($this, $methodName)) {
-                   /*  if ($key == 'created_at') {
-                        $value = new \DateTime($value);
-                    } else if ($key == 'release_date') {
-                        $value = new \DateTime($value);
-                    } else if ($key == 'duration') {
-                        $value = new \DateTime($value);
-                    } */
+                  
                     $this->{$methodName}($value);
                 }
             }

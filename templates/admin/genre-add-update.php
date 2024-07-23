@@ -17,8 +17,8 @@ require_once dirname(__DIR__) . "/header.php";
     <form method="POST">
 
         <div class="mb-3">
-            <label for="nickname" class="form-label">Nom</label>
-            <input type="text" class="form-control <?= (isset($errors['name']) ? 'is-invalid' : '') ?>" id="name" name="name" value="<?= $user['name'] ?>">
+            <label for="name" class="form-label">Nom</label>
+            <input type="text" class="form-control <?= (isset($errors['name']) ? 'is-invalid' : '') ?>" id="name" name="name" value="<?= $genre['name'] ?>">
             <?php if (isset($errors['name'])) { ?>
                 <div class="invalid-feedback"><?= $errors['name'] ?></div>
             <?php } ?>

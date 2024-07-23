@@ -7,6 +7,7 @@ define("_DOMAIN_", ".moviz.local");
 define("MOVIES_IMAGES_FOLDER", "/uploads/movies/");
 define("ASSETS_IMAGES_FOLDER", "/assets/images/");
 define("_ADMIN_ITEM_PER_PAGE_", 5);
+define("_ITEM_PER_HOME_PAGE_", 3);
 
 define("_DB_NAME_", $dbConfig['MYSQL_DATABASE']);
 define("_DB_USER_", $dbConfig['MYSQL_USER']);
