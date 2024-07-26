@@ -1,13 +1,17 @@
 /* Rating */
 
-
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700&display=swap');
 
-*{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
     margin: 0;
     padding: 0;
+    font-family:  "Roboto", sans-serif;
 }
 .rate {
     float: left;
@@ -15,27 +19,27 @@
     padding: 0 10px;
 }
 
-.rate input[type="radio"] {
+.rate input[type='radio'] {
     display: none;
 }
 .rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
 .rate:not(:checked) > label:before {
     content: '★ ';
 }
 .rate > input:checked ~ label {
-    color: #ffc700;    
+    color: #ffc700;
 }
 .rate.enabled:not(:checked) > label:hover,
 .rate.enabled:not(:checked) > label:hover ~ label {
-    color: #deb217;  
+    color: #deb217;
 }
 .rate.enabled > input:checked + label:hover,
 .rate.enabled > input:checked + label:hover ~ label,
@@ -55,7 +59,7 @@ body {
 }
 
 .container {
-     min-height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -68,31 +72,152 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 @media screen and (max-width: 936px) {
-
-.admin-container {
-    flex-direction: column;
+    .admin-container {
+        flex-direction: column;
+    }
 }
 
-} 
+
+.alert-success.message {
+    position: absolute;
+    background-color: #16ec2f!important;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+label {
+    color: #8e4637;
+    font-family: 'Bebas Neue';
+    margin-bottom: -1rem!important;
+    font-size: 18px;
+}
+
+
+.form-check-input:checked {
+    background-color: #8e4637!important;
+
+}
+
+.genre-title {
+     color: #8e4637;
+    font-family: 'Bebas Neue';
+    font-size: 18px;
+    margin-top: 2rem;
+    margin-bottom: 0rem!important;
+
+}
+
+.director-title {
+     color: #8e4637;
+    font-family: 'Bebas Neue';
+    font-size: 18px;
+    margin-top: 2rem;
+    margin-bottom: 0rem!important;
+}
+
+
+.form-check-label {
+    color: black;
+    font-size: 14px;
+}
+
+.directors-block .form-label {
+    color: black;
+    font-size: 14px;
+
+}
+
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  width: 150px;
+  height: 30px;
+  border: 2px solid #8e4637;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.file-upload:hover {
+  background-color: #8e453717;
+  transition: 0.3s ease-in-out;
+}
+
+.file-input__input {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.file-input__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.file-input__label span {
+  font-size: 14px;
+  color: #8e4637;
+}
+
+.directors-block a {
+    display: inline-block;
+    height: 10px;
+    margin-top: 2rem!important;
+}
+
+.bi-x-square-fill {
+    color: rgba(255, 0, 0, 0.523);
+    margin-left: 1rem;
+}
+
+.bi-x-square-fill:hover {
+    color: rgb(255, 0, 0);
+    transition: 0.3s ease-in-out;
+}
+
+
+
+
+/* *********** home ************** */
 
 .banniere {
     margin-top: 15vh;
     margin-bottom: 15vh;
 }
 
-.alert-success {
-    position: absolute;
+.banniere h1 {
+     font-family: "Montserrat", sans-serif;
+    
+
+}
+
+.banniere p {
+    text-align: justify;
+}
+
+h3 {
+    font-family: 'Bebas Neue';
+    color: #8e4637 ;
 }
 
 
+article:hover {
+    box-shadow: 1px 1px 6px#36415663;
+    transition: 0.3s ease-in-out;
+}
 
 /* *********** show movie ************** */
 
-.movie-container  {
+.movie-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,17 +229,16 @@ body {
 }
 
 .flux-show-movie {
-    min-height: 50vh!important;
-   }
-   
+    min-height: 50vh !important;
+}
+
 .show-movie-img {
     flex: 2;
 }
 
-
 .show-movie-title {
-    font-family:  'Bebas Neue'!important;
-    color: #D66853!important;
+    font-family: 'Bebas Neue' !important;
+    color: #8e4637 !important;
 }
 
 .show-movie-genre {
@@ -133,7 +257,7 @@ body {
 }
 
 .show-movie-director {
-    font-family:'Bebas Neue';
+    font-family: 'Bebas Neue';
     font-size: 0.8rem;
     color: #364156;
 }
@@ -144,13 +268,10 @@ body {
     color: #364156;
 }
 
-
-
 .rate-text {
-font-size: 0.7rem;
-margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
 }
-
 
 /* films */
 .card-item {
@@ -184,11 +305,83 @@ section {
     height: auto;
 }
 
-
 form {
     min-width: 30rem;
 }
 
 input[name='saveMovie'] {
-  margin-left:70%;
+    margin-left: 70%;
+}
+
+.lead {
+    font-size: 16px;
+    margin-top: 2rem;
+    text-align: justify;
+}
+
+/* ***************** tous les films ************ */
+
+.block-movies {
+    gap: 2rem;
+    row-gap: 5rem;
+}
+
+
+
+/* ***************** étoiles notation ************ */
+.rate-text {
+  font-size: 0.7rem;
+  margin-bottom: 0.3rem;
+}
+
+.rate {
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: left;
+}
+
+.rate input[type="radio"] {
+  display: none;
+}
+
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+
+.rate.enabled:not(:checked) > label:hover,
+.rate.enabled:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+
+.rate.enabled > input:checked + label:hover,
+.rate.enabled > input:checked + label:hover ~ label,
+.rate.enabled > input:checked ~ label:hover,
+.rate.enabled > input:checked ~ label:hover ~ label,
+.rate.enabled > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+
+/* ********************* sidebar admin *************** */
+
+.sidebar__title a {
+    color: #ccccccbe;
+}
+
+.sidebar__title a:hover {
+    color: #cccccc;
 }

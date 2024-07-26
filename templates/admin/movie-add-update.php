@@ -1,5 +1,8 @@
 <?php
 
+use App\Repository\GenreRepository;
+use App\Tools\StringTools;
+
 require_once dirname(__DIR__) . "/header.php";
 /** @var \App\Entity\Movie $movie */
 ?>
@@ -14,7 +17,7 @@ require_once dirname(__DIR__) . "/header.php";
         </div>
     <?php } ?>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" class="movie-form">
 
         <div class="mb-3">
             <label for="name" class="form-label">Titre</label>
@@ -45,8 +48,7 @@ require_once dirname(__DIR__) . "/header.php";
             <?php } ?>
         </div>
         <div class="mb-3">
-            <label for="duration" class="form-label">Image</label>
-
+            <label for="image" class="form-label">Image</label>
             <?php if (isset($_GET['id']) && $movie['image_name'] !== '') { ?>
                 <p>
                     <img src="<?= MOVIES_IMAGES_FOLDER . $movie['image_name'] ?>" alt="<?= $movie['name'] ?>" width="100">
@@ -59,23 +61,65 @@ require_once dirname(__DIR__) . "/header.php";
                     <img src="<?= ASSETS_IMAGES_FOLDER . 'default-movie.png' ?>" alt="<?= $movie['name'] ?>" width="100">
                 </p>
             <?php } ?>
-            <p>
-                <input type="file" name="file" id="file">
-            </p>
-        </div>
 
-        <?php foreach ($genres as $genre) { ?>
-
-            <div class="mb-3">
-                <label for="genre" class="form-label">Genre</label>
-                <input type="text" class="form-control <?= (isset($errors['genre']) ? 'is-invalid' : '') ?>" id="genre" name="genre" value="<?= $genre->getName() ?>">
-                <?php if (isset($errors['genre'])) { ?>
-                    <div class="invalid-feedback"><?= $genre->getName() ?></div>
-                <?php } ?>
+            <div class="file-upload">
+                <input name="file" type="file" id="file" class="file-input__input" />
+                <label class="file-input__label" for="file-input">
+                    <span>Choisir une image</span>
+                </label>
             </div>
-        <?php   } ?>
+
+        </div>
+        <?php
+        $genresRepository = new GenreRepository();
+        $genresAll = $genresRepository->findAll();
+        ?>
+
+        <p class="genre-title">Genres:</p>
+        <?php  // Iterate through the array of checkbox objects
+        foreach ($genresAll as $checkboxObject) {
+            // Check if the checkbox object is present in the array of item objects
+            $isChecked = false;
+            foreach ($genresByMovie as $itemObject) {
+                if ($checkboxObject->getId() == $itemObject->getId()) {
+                    $isChecked = true;
+                    break;
+                }
+            }
+            echo '<div class="form-check form-switch">';
+            echo '<input class="form-check-input" role="switch" type="checkbox" name="options[]" value="' . $checkboxObject->getId() . '"' . ($isChecked ? ' checked' : '') . '>';
+            echo '<label class="form-check-label">' . $checkboxObject->getName() . '</label>';
+            echo '</div>';
+        } ?>
+
+        <p class="director-title">Réalisateurs: </p>
+        <!-- ******************** réalisateurs ****************************** -->
+        <?php foreach ($directorsByMovie as $director) {  ?>
+            <div class="d-flex directors-block">
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">Prénom</label>
+                    <input type="text" class="form-control <?= (isset($errors['first_name']) ? 'is-invalid' : '') ?>" id="first_name" name="first_name[]" value="<?= $director->getFirstName() ?>">
+                    <?php if (isset($errors['first_name'])) { ?>
+                        <div class="invalid-feedback"><?= $errors['first_name'] ?></div>
+                    <?php } ?>
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Nom</label>
+                    <input type="text" class="form-control <?= (isset($errors['last_name']) ? 'is-invalid' : '') ?>" id="last_name" name="last_name[]" value="<?= $director->getLastName() ?>">
+                    <?php if (isset($errors['first_name'])) { ?>
+                        <div class="invalid-feedback"><?= $errors['last_name'] ?></div>
+                    <?php } ?>
+                </div>
+
+                <input type="hidden" name="director_id" value="<?= $director->getId() ?>">
+                <input type="hidden" name="movie_id" value="<?= $movie['id'] ?>">
+                <a class="delete-link"><i class="bi bi-x-square-fill"></i></a>
+            </div>
 
 
+        <?php } ?>
+        <input id="add-director" type="button" value="Ajouter un réalisateur" class="btn btn-outline-primary btn-sm">
+        <!-- **************************************************************** -->
 
 
 
@@ -86,5 +130,9 @@ require_once dirname(__DIR__) . "/header.php";
 </section>
 
 <?php
+
+
+
+
 require_once dirname(__DIR__) . "/footer.php";
 ?>

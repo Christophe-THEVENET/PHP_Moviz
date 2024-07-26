@@ -30,15 +30,15 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
 
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img src="<?=  ASSETS_IMAGES_FOLDER . '/logo-moviz.png' ?>" alt="" width="150">
-               
+                <img src="<?= ASSETS_IMAGES_FOLDER . '/logo-moviz.png' ?>" alt="" width="150">
+
             </a>
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a href="/" class="nav-link px-2 ">Accueil</a>
+                    <a href="/" class="nav-link px-2  <?= NavigationTools::addActiveClass('page', 'home') ?>">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/?controller=movie&action=list" class="nav-link px-2 ">Les films</a>
+                    <a href="/?controller=page&action=movies" class="nav-link px-2 <?= NavigationTools::addActiveClass('page', 'movies') ?>">Les films</a>
                 </li>
             </ul>
             <div class="col-md-4 d-flex justify-content-end align-items-baseline">
@@ -47,7 +47,11 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <a href="/index.php?controller=auth&action=logout" class="btn btn-outline-primary btn-sm m-1">Déconnexion</a>
                     <?php if (Security::isAdmin()) { ?>
                         <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 
-                        <?php isset($_GET['controller']) && $_GET['controller'] === 'admin' ? 'active' : $_GET['controller'] = '' ?>
+                        <?php if (isset($_GET['controller']) && $_GET['controller'] === 'admin') {
+                        echo'active' ;
+                        } else {
+                            echo '';
+                        }?>
                         ">Administration</a>
                     <?php }
                 } else { ?>

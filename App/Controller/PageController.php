@@ -12,6 +12,7 @@ class PageController extends Controller
                 match ($_GET['action']) {
                     //charger controleur home
                     'home' => $this->home(),
+                    'movies' => $this->movies(),
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {
@@ -32,6 +33,15 @@ class PageController extends Controller
     {
 
         $this->render('page/home', [
+            'test' => 555,
+            'nom' => "Christophe",
+        ]);
+    }
+
+    protected function movies()
+    {
+
+        $this->render('page/movies', [
             'test' => 555,
             'nom' => "Christophe",
         ]);

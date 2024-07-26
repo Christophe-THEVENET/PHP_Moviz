@@ -1,7 +1,7 @@
 :root {
-    --primary: #09b468;
-    --secondary: #90c192;
-    --success: #28a745;
+    --primary: #723d17;
+    --secondary: #6963139a;
+    --success: #15ea43;
     --danger: #dc3545;
     --warning: #fd7e14;
     --info: #17a2b8;
@@ -87,7 +87,7 @@
 .container main table,
 .container main table td,
 .container main table th {
-    background-color: #e6efe699;
+    background-color: #e6efe65f;
     color: #29312c;
 }
 
@@ -98,10 +98,7 @@ justify-content: space-around;
 max-width: 80px;
 }
 
-.container main table tbody tr td:hover {
-    background-color: #cbe2d185;
-    color: #222e2b;
-}
+
 
 .sidebar__title {
     width: 100%;

@@ -82,6 +82,7 @@ class DirectorController extends Controller
                     if (isset($director['id'])) {
                         $_POST['id'] = $director['id'];
                     };
+                    
 
                     $directorObject = new Director();
                     $directorObject->hydrate($_POST);
@@ -170,4 +171,5 @@ class DirectorController extends Controller
             ]);
         }
     }
+    
 }

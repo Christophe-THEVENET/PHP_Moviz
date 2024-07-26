@@ -38,7 +38,10 @@ class DirectorRepository extends Repository
         $query->bindValue(':first_name', $director->getFirstName(), $this->pdo::PARAM_STR);
         $query->bindValue(':last_name', $director->getLastName(), $this->pdo::PARAM_STR);
 
-        return $query->execute();
+        $query->execute();
+
+        $last_id = $this->pdo->lastInsertId();
+        return $last_id;
     }
 
     public function findAll(int $limit = null, int $page = null): array|bool
@@ -121,9 +124,26 @@ class DirectorRepository extends Repository
 
     public function linkDirectorsByMovie(int $movie_id, int $director_id)
     {
-        $query = $this->pdo->prepare('INSERT INTO movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
+        // Vérification si l'enregistrement existe déjà dans la table
+        $query = $this->pdo->prepare("SELECT COUNT(*) FROM movie_director WHERE director_id = :director_id AND movie_id = :movie_id");
+        $query->execute(['director_id' => $director_id, 'movie_id' => $movie_id]);
+        $count = $query->fetchColumn();
+
+        if ($count > 0) {
+        } else {
+            $query = $this->pdo->prepare('INSERT INTO movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
         $query->bindParam(':movie_id', $movie_id, $this->pdo::PARAM_STR);
         $query->bindParam(':director_id', $director_id, $this->pdo::PARAM_STR);
+        }
+
+        return $query->execute();
+    }
+
+    public function unLinkDirectorsByMovie(int $movieId, int $directorId)
+    {
+        $query = $this->pdo->prepare('DELETE FROM movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
+        $query->bindParam(':movie_id', $movieId, $this->pdo::PARAM_STR);
+        $query->bindParam(':director_id', $directorId, $this->pdo::PARAM_STR);
 
         return $query->execute();
     }
