@@ -117,96 +117,53 @@ class MovieController extends Controller
                     'duration' => '',
                     'image_name' => 'null',
                 ];
-                // ***************** get movie for update ********************
+
+                $movieRepository = new movieRepository();
+                $genreRepository = new GenreRepository();
+                $directorRepository = new DirectorRepository();
+                $movieDirectorRepository = new MovieDirectorRepository();
+                $movieGenreRepository = new MovieGenreRepository();
+
+                // ***************** si id url récupère le film les genres les réalisateurs pour update ********************
                 if (isset($_GET['id'])) {
 
                     $id = (int)$_GET['id'];
 
-                    $movieRepository = new movieRepository();
                     $movie = $movieRepository->findOneById($id);
-
-                    $genreRepository = new GenreRepository();
-                    $genresByMovie = $genreRepository->findAllByMovieId($movie->getId());
-
-                    $directorRepository = new DirectorRepository();
-                    $directorsByMovie = $directorRepository->findAllByMovieId($movie->getId());
+                    $genresByMovie = $genreRepository->findAllByMovieId($id);
+                    $directorsByMovie = $directorRepository->findAllByMovieId($id);
 
                     $movie = [
-                        'id' => $movie->getId(),
+                        'id' => $id,
                         'name' => $movie->getName(),
                         'release_year' => $movie->getReleaseYear(),
                         'synopsys' => $movie->getSynopsys(),
                         'duration' => $movie->getDuration(),
                         'image_name' => $movie->getImageName(),
                     ];
-         
-                                 
+
                     if ($movie === false) {
                         $errors[] = "Le film n\'existe pas";
                     }
                     $pageTitle = "Modifier le film : " . $movie['name'];
                 } else {
                     $pageTitle = "Ajouter un film";
+                    $genresByMovie = [];
+                    $directorsByMovie = [];
                 }
 
-
-                // ***************** save movie ********************
+                // ***************** envoi du formulaire ********************
                 if (isset($_POST['saveMovie'])) {
-
-                   
-                    // donne un id a la fct hydrate qui update sinon elle crée
-                    if (isset($movie['id'])) {
-                        $_POST['id'] = $movie['id'];
-
-                        // persiste les genres par film dans la table movie_genre
-                        $genresIdByMovie = $_POST['options'];
-                        $movieGenreRepository = new MovieGenreRepository();
-                        $movieGenreRepository->persistGenresByFilm($movie['id'], $genresIdByMovie);
-                       
-                    };
-                 
-                    if (isset($_POST['deleteDirector'])) {
-
-                         echo '<pre>';
-                    print_r($_POST);
-                    echo '</pre>';
-
-                    die;
-                    }
-
-                    // transforme le tableau de prénoms et le tableau de noms en des tableaux
-                    // prénom et nom en supp les espaces et 1er caract en maj
-                    $firstNames = array_map('ucfirst', array_map('strtolower', array_map('trim', $_POST['first_name'])));
-                    $lastNames = array_map('ucfirst', array_map('strtolower', array_map('trim', $_POST['last_name'])));
-                    $directors = array_map(function ($first, $last) {
-                        return array('first_name' => $first, 'last_name' => $last);
-                    }, $firstNames, $lastNames);
-
-                    // vérifie si le réalisateur existe en bdd si non retourne un tableau 
-                    // des réalisateurs a persister
-                    $movieDirectorRepository = new MovieDirectorRepository();
-                    $directorsToPersist = $movieDirectorRepository->checkDirectorIsInBdd($directors, $movie['id'] );
-
-                    // persiste les réalisateurs et les joint au film (si non vide)
-                    foreach ($directorsToPersist as $directorToPersist) {
-                        if ((isset($directorToPersist['first_name']) && $directorToPersist['first_name'] !== '') || (isset($directorToPersist['last_name']) && $directorToPersist['last_name'] !== '')) {
-
-
-                            $directorObject = new Director();
-                            $directorObject->hydrate($directorToPersist);
-
-                            $directorRepository = new DirectorRepository();
-                            $directorId =  $directorRepository->persist($directorObject);
-
-                            $directorRepository->linkDirectorsByMovie($movie['id'], $directorId);
-                        }
-                    }
-
 
                     // si un fichier est envoyé 
                     if ((isset($_FILES['file']['name']) && $_FILES['file']['name'] !== '')) {
-
-                        $filename = FileTools::uploadImage(MOVIES_IMAGES_FOLDER, $_FILES['file'], $movie['image_name']);
+                        // si on est en update
+                        if (isset($movie['image_name'])) {
+                            $filename = FileTools::uploadImage(MOVIES_IMAGES_FOLDER, $_FILES['file'], $movie['image_name']);
+                        } else {
+                            // si on est en create
+                            $filename = FileTools::uploadImage(MOVIES_IMAGES_FOLDER, $_FILES['file']);
+                        }
                         $_POST['image_name'] = $filename['fileName'];
                     } else {
                         // Si aucun fichier n'a été envoyé
@@ -221,25 +178,64 @@ class MovieController extends Controller
                             }
                         }
                     }
-                       
-
-
-              
-                    $movieObject = new movie();
-                    $movieObject->hydrate($_POST);
-
 
                     if (empty($errors)) {
-                        $movieRepository = new movieRepository();
-                        $movieRepository->persist($movieObject);
 
+                        // donne un id a la fct hydrate qui update sinon elle crée
+                        if (isset($_GET['id'])) {
+                            $_POST['id'] = $_GET['id'];
+                        };
+
+                        $movieObject = new movie();
+                        $movieObject->hydrate($_POST);
+                        // récup l'id movie juste persisté
+                        $movieIdJustPersisted = $movieRepository->persist($movieObject);
+
+
+                        if (isset($_POST['options']) &&  $_POST['options'] !== null) {
+                            // récupère les id des genres pour les lier au film
+                            $genresIdByMovie = $_POST['options'];
+                            // lien genres by movie
+                            $movieGenreRepository->persistGenresByFilm($movieIdJustPersisted, $genresIdByMovie);
+                        } else {
+                            $genresIdByMovie = [];
+                        }
+                        // si un ou plusieurs réalisateurs sont renseignés
+                        if (isset($_POST['first_name']) &&  $_POST['last_name']) {
+
+                            // transforme le tableau réalisateurs de prénoms et de noms en des tableaux
+                            // prénom et nom en supp les espaces et 1er caract en maj
+                            $firstNames = array_map('ucfirst', array_map('strtolower', array_map('trim', $_POST['first_name'])));
+                            $lastNames = array_map('ucfirst', array_map('strtolower', array_map('trim', $_POST['last_name'])));
+                            // tableau des réalisateurs nom, prénom
+                            $directors = array_map(function ($first, $last) {
+                                return array('first_name' => $first, 'last_name' => $last);
+                            }, $firstNames, $lastNames);
+                            // vérifier si les réalisateur sont en bdd sinon les retourner dans un tableau
+                            $directorsToPersist = $movieDirectorRepository->checkDirectorsIsInBdd($directors);
+                            $directorIdsByMovie = [];
+
+                            // persiste les réalisateurs non présent en bdd et récup leur id
+                            foreach ($directorsToPersist as $directorToPersist) {
+                                $directorObject = new Director();
+                                $directorObject->hydrate($directorToPersist);
+                                $directorRepository = new DirectorRepository();
+                                $directorRepository->persist($directorObject);
+                            }
+
+                            // récupère les id des réalisateurs renseignés déja en bdd pour les lier au film
+                            $directorIdsByMovie = $directorRepository->getDirectorsIds($directors);
+                            //lier les réalisateurs au film
+                            $movieDirectorRepository->linkDirectorsByMovie($movieIdJustPersisted, $directorIdsByMovie);
+                        }
+
+                        
                         if (isset($movie['id'])) {
                             $messages[] = 'Modification du film réussi !';
                             $movie = [
                                 'id' => '',
                                 'first_name' => '',
                                 'last_name' => '',
-
                             ];
                         } else {
                             $messages[] = 'Ajout du film réussi !';
@@ -248,7 +244,6 @@ class MovieController extends Controller
                     $_SESSION['messages'] = $messages;
                     header('location:' . Security::navigateTo('admin', 'movies'));
                 }
-
 
                 $this->render('admin/movie-add-update', [
 

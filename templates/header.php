@@ -48,10 +48,10 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                     <?php if (Security::isAdmin()) { ?>
                         <a href="/index.php?controller=admin&action=admin" class="btn btn-outline-primary me-2 btn-sm m-1 
                         <?php if (isset($_GET['controller']) && $_GET['controller'] === 'admin') {
-                        echo'active' ;
+                            echo 'active';
                         } else {
                             echo '';
-                        }?>
+                        } ?>
                         ">Administration</a>
                     <?php }
                 } else { ?>
@@ -87,7 +87,7 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                             </a>
                         </li>
                         <li>
-                            <a href="<?= Security::navigateTo('admin', 'movies') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'movies') ?>">
+                            <a href="<?= Security::navigateTo('admin', 'movies') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'movies') ?>  <?= NavigationTools::addActiveClass('admin', 'movie') ?>">
                                 <i class="bi bi-film me-2"></i>
                                 Films
                             </a>

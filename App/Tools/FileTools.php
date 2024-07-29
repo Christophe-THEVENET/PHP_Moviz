@@ -17,8 +17,8 @@ class FileTools
                 $fileName = uniqid() . '-' . $fileName;
 
                 if (move_uploaded_file($file["tmp_name"], _ROOTPATH_.$destinationPath . $fileName)) {
-                    if ($oldFileName) {
 
+                    if ($oldFileName) {
                         unlink(_ROOTPATH_ . $destinationPath . $oldFileName);
                     }
                 } else {

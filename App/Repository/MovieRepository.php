@@ -33,6 +33,7 @@ class MovieRepository extends Repository
             $query = $this->pdo->prepare(
                 "INSERT INTO movie (`name`,release_year,synopsys,duration,image_name  ) VALUES (:name, :release_year, :synopsys, :duration, :image_name)"
             );
+
         }
 
         $query->bindValue(':name', $movie->getName(), $this->pdo::PARAM_STR);
@@ -40,8 +41,16 @@ class MovieRepository extends Repository
         $query->bindValue(':synopsys', $movie->getSynopsys(), $this->pdo::PARAM_STR);
         $query->bindValue(':duration', $movie->getDuration(), $this->pdo::PARAM_STR);
         $query->bindValue(':image_name', $movie->getImageName(), $this->pdo::PARAM_STR);
+        $query->execute();
 
-        return $query->execute();
+        if ($movie->getId() === null) {
+            $movieId = $this->pdo->lastInsertId();
+        } else {
+            $movieId = $movie->getId();
+        }
+
+        return $movieId;
+
     }
 
     public function findAll(int $limit = null, int $page = null): array|bool

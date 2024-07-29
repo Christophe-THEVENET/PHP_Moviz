@@ -3,8 +3,6 @@
 $directorId = $_POST['director_id'];
 $movieId = $_POST['movie_id'];
 
-// Supprimez le lien entre director et movie à partir de la base de données
-// Vous devrez remplacer cette partie du code par le code approprié pour votre base de données
 $pdo = new PDO('mysql:host=db;dbname=moviz_db', 'test', 'test');
 $stmt = $pdo->prepare('DELETE FROM movie_director WHERE director_id = :director_id AND movie_id = :movie_id');
 $stmt->execute(['director_id' => $directorId, 'movie_id' => $movieId]);

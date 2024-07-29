@@ -28,7 +28,7 @@ require_once dirname(__DIR__) . "/header.php";
         </div>
         <div class="mb-3">
             <label for="release_year" class="form-label">Date de sortie</label>
-            <input type="text" class="form-control <?= (isset($errors['release_year']) ? 'is-invalid' : '') ?>" id="release_year" name="release_year" value="<?= $movie['release_year'] ?>">
+            <input placeholder="AAAA-MM-JJ" type="text" class="form-control <?= (isset($errors['release_year']) ? 'is-invalid' : '') ?>" id="release_year" name="release_year" value="<?= $movie['release_year'] ?>">
             <?php if (isset($errors['release_year'])) { ?>
                 <div class="invalid-feedback"><?= $errors['release_year'] ?></div>
             <?php } ?>
@@ -42,7 +42,7 @@ require_once dirname(__DIR__) . "/header.php";
         </div>
         <div class="mb-3">
             <label for="duration" class="form-label">Durée</label>
-            <input type="text" class="form-control <?= (isset($errors['duration']) ? 'is-invalid' : '') ?>" id="duration" name="duration" value="<?= $movie['duration'] ?>">
+            <input placeholder="HH:MM" type="text" class="form-control <?= (isset($errors['duration']) ? 'is-invalid' : '') ?>" id="duration" name="duration" value="<?= $movie['duration'] ?>">
             <?php if (isset($errors['duration'])) { ?>
                 <div class="invalid-feedback"><?= $errors['duration'] ?></div>
             <?php } ?>
@@ -61,14 +61,9 @@ require_once dirname(__DIR__) . "/header.php";
                     <img src="<?= ASSETS_IMAGES_FOLDER . 'default-movie.png' ?>" alt="<?= $movie['name'] ?>" width="100">
                 </p>
             <?php } ?>
-
-            <div class="file-upload">
-                <input name="file" type="file" id="file" class="file-input__input" />
-                <label class="file-input__label" for="file-input">
-                    <span>Choisir une image</span>
-                </label>
-            </div>
-
+            <p>
+                <input type="file" name="file" id="file">
+            </p>
         </div>
         <?php
         $genresRepository = new GenreRepository();

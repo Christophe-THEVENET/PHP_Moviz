@@ -40,8 +40,14 @@ class DirectorRepository extends Repository
 
         $query->execute();
 
-        $last_id = $this->pdo->lastInsertId();
-        return $last_id;
+        if ($director->getId() === null) {
+            $directorId = $this->pdo->lastInsertId();
+        } else {
+            $directorId = $director->getId();
+        }
+
+        return $directorId;
+
     }
 
     public function findAll(int $limit = null, int $page = null): array|bool
@@ -122,32 +128,29 @@ class DirectorRepository extends Repository
         return $directorsArray;
     }
 
-    public function linkDirectorsByMovie(int $movie_id, int $director_id)
+    public function getDirectorsIds(array $directors)
     {
-        // Vérification si l'enregistrement existe déjà dans la table
-        $query = $this->pdo->prepare("SELECT COUNT(*) FROM movie_director WHERE director_id = :director_id AND movie_id = :movie_id");
-        $query->execute(['director_id' => $director_id, 'movie_id' => $movie_id]);
-        $count = $query->fetchColumn();
+        $directorsIds = [];
 
-        if ($count > 0) {
-        } else {
-            $query = $this->pdo->prepare('INSERT INTO movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
-        $query->bindParam(':movie_id', $movie_id, $this->pdo::PARAM_STR);
-        $query->bindParam(':director_id', $director_id, $this->pdo::PARAM_STR);
+        foreach ($directors as $director) {
+            $firstName = $director['first_name'];
+            $lastName = $director['last_name'];
+
+            $query = $this->pdo->prepare("SELECT id FROM director WHERE first_name = :first_name AND last_name = :last_name");
+            $query->bindParam(':first_name', $firstName);
+            $query->bindParam(':last_name', $lastName);
+            $query->execute();
+
+            $id = $query->fetchColumn();
+
+            if ($id) {
+                $directorsIds[] = $id;
+            }
         }
 
-        return $query->execute();
-    }
-
-    public function unLinkDirectorsByMovie(int $movieId, int $directorId)
-    {
-        $query = $this->pdo->prepare('DELETE FROM movie_director (movie_id, director_id) VALUES (:movie_id, :director_id)');
-        $query->bindParam(':movie_id', $movieId, $this->pdo::PARAM_STR);
-        $query->bindParam(':director_id', $directorId, $this->pdo::PARAM_STR);
-
-        return $query->execute();
+        return $directorsIds;
     }
 
 
-
+   
 }
