@@ -319,6 +319,19 @@ input[name='saveMovie'] {
     text-align: justify;
 }
 
+
+
+/* ***************** liste des commentaires ************ */
+
+.comments-section, .rates-section {
+    max-width: 50rem;
+}
+
+.comments-block:hover {
+box-shadow: none!important;
+}
+
+
 /* ***************** tous les films ************ */
 
 .block-movies {
@@ -329,9 +342,23 @@ input[name='saveMovie'] {
 
 
 /* ***************** étoiles notation ************ */
+
+.rates-section form {
+    margin-top: 2rem!important;
+}
+
+
 .rate-text {
   font-size: 0.7rem;
   margin-bottom: 0.3rem;
+}
+
+.rate-span {
+    color: #364156;
+    display: inline-block;
+    font-size: 11px;
+    margin-left: 0.5rem;
+    margin-top: -1rem;
 }
 
 .rate {
@@ -358,6 +385,12 @@ input[name='saveMovie'] {
   content: '★ ';
 }
 
+.comments-section {
+    margin: 0;
+    padding: 0;
+}
+
+
 .rate > input:checked ~ label {
   color: #ffc700;
 }
@@ -374,6 +407,26 @@ input[name='saveMovie'] {
 .rate.enabled > label:hover ~ input:checked ~ label {
   color: #c59b08;
 }
+ 
+/* ************ LISTE COMMENTAIRES ************* */
+
+.comment-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 1rem!important;
+
+}
+
+.comment-right-block {
+    padding-top: 1rem;
+}
+
+.user-rating p {
+    margin: 0;
+    padding: 0;
+}
 
 
 /* ********************* sidebar admin *************** */
@@ -385,3 +438,36 @@ input[name='saveMovie'] {
 .sidebar__title a:hover {
     color: #cccccc;
 }
+/* ********************* liste commentaires *************** */
+
+/* ----- affiche tous le commentaire hover -----*/
+
+.span-hover {
+    color: #364156a8;
+    font-size: 11px;
+}
+.tooltip {
+  visibility: hidden;
+  width: 300px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition:  0.3s;
+}
+
+.review-case:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s;
+
+
+
+}
+

@@ -17,7 +17,6 @@ class DateFrench
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::MEDIUM, IntlDateFormatter::NONE);
         return $formatter->format($dateTimestamp);
     }
-
     // ******************* formater les dates en français dans admin ******************************
     public static function  formatDateAdimInFrench($date)
     {
@@ -35,7 +34,7 @@ class DateFrench
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
         return $formatter->format($dateTimestamp);
     }
-    // ******************* formater heurs en français ******************************
+    // ******************* formater heures en français ******************************
     public static function  formatHourInFrench($date)
     {
         setlocale(LC_TIME, 'fr',

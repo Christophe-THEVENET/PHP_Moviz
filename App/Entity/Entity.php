@@ -23,7 +23,6 @@ class Entity
                 // Pour chaque donnée, on appel le setter
                 $methodName = 'set' . StringTools::toPascalCase($key);
                 if (method_exists($this, $methodName)) {
-                  
                     $this->{$methodName}($value);
                 }
             }

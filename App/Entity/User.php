@@ -63,7 +63,7 @@ class User extends Entity
      *
      * @return  self
      */
-    public function setNickname($nickname)
+    public function setNickname($nickname): self
     {
         $this->nickname = $nickname;
 

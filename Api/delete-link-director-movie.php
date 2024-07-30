@@ -1,4 +1,5 @@
 <?php
+// Objectif: supprimer le lien entre un film est un réalisateur
 // Récupérez les ID de director et movie à partir des données de la requête AJAX
 $directorId = $_POST['director_id'];
 $movieId = $_POST['movie_id'];

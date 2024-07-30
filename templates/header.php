@@ -110,6 +110,12 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
                                 Réalisateurs
                             </a>
                         </li>
+                        <li>
+                            <a href="<?= Security::navigateTo('admin', 'reviews') ?>" class="nav-link  <?= NavigationTools::addActiveClass('admin', 'reviews') ?>">
+                                <i class="bi bi-chat-left-dots me-2"></i>
+                                Commentaires
+                            </a>
+                        </li>
                     </ul>
                     <hr>
                     <?php if (Security::isAdmin()) { ?>

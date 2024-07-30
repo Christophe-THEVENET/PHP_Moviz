@@ -1,13 +1,13 @@
 <?php
 
+use App\Security\Security;
 use App\Tools\DateFrench;
 
 require_once _ROOTPATH_ . '/templates/header.php';
-
 /** @var App\Entity\Movie $movie */
 ?>
 
-
+<!-- ************************ movie ******************************* -->
 <section class="row flex-lg-row-reverse align-items-center g-5 py-5">
     <div class="col-10 col-sm-8 col-lg-6">
         <img src="<?= $movie->getImagePath() ?>" class="d-block mx-lg-auto img-fluid" alt="<?= $movie->getName() ?>" width="700" height="500" loading="lazy">
@@ -45,66 +45,110 @@ require_once _ROOTPATH_ . '/templates/header.php';
     </div>
 </section>
 
-<section class="row flex-lg-row-reverse align-items-start g-5 py-5 w-100">
+<?php if (Security::isLogged()) { ?>
+<!-- ************************ formulaire rate ******************************* -->
+<section class="row flex-lg-row-reverse align-items-start g-5 py-2 w-100 rates-section">
 
     <h3>Notez ce film :</h3>
 
     <form action="#" method="post">
+        <label for="rate">Note <span class="rate-span">(cliquez les étoiles)</span></label>
         <fieldset>
-            <legend>Note</legend>
             <div class="rate">
-                <input type="radio" id="rate_5" name="rate" value="5">
-                <label for="rate_5">5</label>
-            </div>
-            <div class="rate">
-                <input type="radio" id="rate_4" name="rate" value="4">
-                <label for="rate_4">4</label>
-            </div>
-            <div class="rate">
-                <input type="radio" id="rate_3" name="rate" value="3">
-                <label for="rate_3">3</label>
+                <input type="radio" id="rate_1" name="rate" value="1">
+                <label for="rate_1">1</label>
             </div>
             <div class="rate">
                 <input type="radio" id="rate_2" name="rate" value="2">
                 <label for="rate_2">2</label>
             </div>
             <div class="rate">
-                <input type="radio" id="rate_1" name="rate" value="1">
-                <label for="rate_1">1</label>
+                <input type="radio" id="rate_3" name="rate" value="3">
+                <label for="rate_3">3</label>
+            </div>
+            <div class="rate">
+                <input type="radio" id="rate_4" name="rate" value="4">
+                <label for="rate_4">4</label>
+            </div>
+            <div class="rate">
+                <input type="radio" id="rate_5" name="rate" value="5">
+                <label for="rate_5">5</label>
             </div>
         </fieldset>
         <div>
             <label for="review">Critique</label>
-            <textarea id="review" name="review" class="form-control"></textarea>
+            <textarea id="review" name="review" class="form-control btn-sm"></textarea>
         </div>
         <div>
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-outline-primary my-2 btn-sm btn-comments">Envoyer</button>
         </div>
     </form>
 
 
 
+
+
 </section>
 
-<section class="row flex-lg-row-reverse align-items-start g-5 py-5 w-100">
+<?php } ?>
+
+
+<!-- ************************ all rates for the movie ******************************* -->
+<section class="row flex-lg-row-reverse align-items-start g-5 py-5 w-100 comments-section">
 
     <h3>liste des commentaires pour ce film</h3>
-    <article class='colcard-item px-5 py-2'>
+
+
+    <?php  
+
+    // entité
+    // repository
+    // Récupérez les données de la note de l'utilisateur depuis la base de données
+    // faire la boucle des commentaires 
+
+
+    $userRating =  5;
+    $userName = 'Toto';
+    $userDate = "2024-07-17 08:08:48";
+    $userDateFormated = DateFrench::formatDateAdimInFrench($userDate);
+    $userHourFormated = DateFrench::formatHourInFrench($userDate);
+    $userHourFormatedFinal = str_replace(':', 'h', $userHourFormated);
+
+    $userComment = 'Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor accumsan tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla quis lorem ut libero malesuada feugiat.
+Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla porttitor accumsan tincidunt. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.';
+
+    // Générez le code HTML pour afficher les étoiles colorées
+    $starsHtml = '';
+    for ($i = 1; $i <= 5; $i++) {
+        if ($i <= $userRating) {
+            $starsHtml .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
+        } else {
+            $starsHtml .= '<span>&#9734;</span>'; // Étoile vide
+        }
+    }
+
+    ?>
+
+
+    <article class='col card-item comments-block'>
         <div class="card w-100">
-            <div class="card-body">
-                <h5 class="card-title">test</h5>
-
-
-                <div class="row align-items-center">
-                    <div class="rate col-6">
-                        <input disabled="disabled" type="radio" id="avgstar{{ i }}-{{reviewByMovie.user.email}}" name="avgrate{{i}}-{{reviewByMovie.user.email}}" value="" <?php 'toto' ? 'checked="checked"' : '' ?> />
-                        <label for="avgstar{{ i }}-{{reviewByMovie.user.email}}" title="">test étoiles</label>
-
+            <div class="card-body comment-block">
+                <div class="comment-left-block">
+                    <h5 class="card-title"><?= $userName ?></h5>
+                    <div class="user-rating">
+                        <p><?= $starsHtml ?> </p>
+                        <p><?= $userDateFormated ?></p>
+                        <p><?= $userHourFormatedFinal ?></p>
                     </div>
-                    <p class="card-text">test</p>
                 </div>
+                <p class="comment-right-block"><?= $userComment ?></p>
             </div>
+        </div>
     </article>
 </section>
+
+
+
+
 
 <?php require_once _ROOTPATH_ . '/templates/footer.php'; ?>

@@ -65,6 +65,18 @@ class AdminController extends Controller
                         $movieController = new MovieController(),
                         $movieController->movieDelete(),
                     ],
+                    'reviews' => [
+                        $reviewController = new ReviewController(),
+                        $reviewController->reviewsList(),
+                    ],
+                    'review' => [
+                        $reviewController = new ReviewController(),
+                        $reviewController->reviewAddUpdate(),
+                    ],
+                    'review-delete' => [
+                        $reviewController = new ReviewController(),
+                        $reviewController->reviewDelete(),
+                    ],
                     default => throw new \Exception("Cette action n'existe pas : " . $_GET['action']),
                 };
             } else {

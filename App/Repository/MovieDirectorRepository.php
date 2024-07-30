@@ -8,7 +8,6 @@ use PDOException;
 class MovieDirectorRepository extends Repository
 {
 
-
     public function linkDirectorsByMovie(int $movieId, array $directorIds)
     {
         // Delete existing records for the film in the junction table
@@ -27,7 +26,6 @@ class MovieDirectorRepository extends Repository
 
     public function checkDirectorsIsInBdd(array $directors)
     {
-
         $directorsToPersist = [];
         $directorToPersist = [];
 
