@@ -125,7 +125,6 @@ document.querySelectorAll('.delete-link').forEach(function(button) {
 // *************** ETOILE NOTATION ***************************
 // Sélectionnez tous les éléments d'entrée de type radio avec le nom "rate"
 const rateRadios = document.querySelectorAll('input[name="rate"]');
-
 // Ajoutez un gestionnaire d'événements pour chaque élément d'entrée de type radio
 rateRadios.forEach(radio => {
     radio.addEventListener('change', () => {
@@ -133,11 +132,8 @@ rateRadios.forEach(radio => {
         rateRadios.forEach(r => {
             r.nextElementSibling.style.color = 'lightgrey';
         });
-
         // Changez la couleur des étoiles sélectionnées et de celles qui les précèdent
         let selectedValue = parseInt(radio.value);
-        console.log(selectedValue);
-        
         for (let i = 1; i <= selectedValue; i++) {
             document.getElementById(`rate_${i}`).nextElementSibling.style.color = 'gold';
         }
@@ -145,31 +141,76 @@ rateRadios.forEach(radio => {
 });
 
 // *************** APPROUVED REVIEW ***************************
+let approuvedButtons = document.querySelectorAll('input[name="approuved"]');
+approuvedButtons.forEach(approuvedButton => {
+    approuvedButton.addEventListener('change', () => {
+        let reviewId = approuvedButton.dataset.id;
 
-    let approuvedButtons = document.querySelectorAll('input[name="approuved"]');
-    approuvedButtons.forEach((approuvedButton) => {
-        approuvedButton.addEventListener('change', () => {
-            
-            let reviewId = approuvedButton.dataset.id;
-            
-            let reviewApprouved = approuvedButton.checked ? 1 : 0;
+        let reviewApprouved = approuvedButton.checked ? 1 : 0;
 
-            
-            fetch('http://localhost:8080/Api/change-approuved-review.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `review_id=${reviewId}&review_approuved=${reviewApprouved}`
+        fetch('http://localhost:8080/Api/change-approuved-review.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `review_id=${reviewId}&review_approuved=${reviewApprouved}`
+        })
+            .then(function(response) {
+                // a traiter
             })
-                .then(function(response) {
-                    // a traiter
-                })
-                .catch(function(error) {
-                    // a traiter
-                });
-        });
+            .catch(function(error) {
+                // a traiter
+            });
     });
+});
 
+// *************** POST REVIEW ***************************
+let formPostReview = document.querySelector('.form-post-review');
 
+formPostReview.addEventListener('submit', e => {
+    e.preventDefault();
+    let formData = new FormData(e.target);
+    let data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+    data['approuved'] = 0;
 
+    fetch('http://localhost:8080/Api/post-review-by-movie.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const successDiv = document.createElement('div');
+            successDiv.classList.add('alert', 'alert-success');
+            successDiv.textContent = data.success;
+
+            formPostReview.appendChild(successDiv);
+            setTimeout(() => {
+                successDiv.remove();
+                formPostReview.reset();
+                rateRadios.forEach(r => {
+                    r.nextElementSibling.style.color = 'lightgrey';
+                });
+            }, 3000);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            const errorDiv = document.createElement('div');
+            errorDiv.classList.add('alert', 'alert-danger');
+            errorDiv.textContent = 'An error occurred while processing your request.';
+            formPostReview.appendChild(errorDiv);
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 3000);
+        });
+});

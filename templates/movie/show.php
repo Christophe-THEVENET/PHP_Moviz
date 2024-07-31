@@ -1,7 +1,11 @@
 <?php
 
+use App\Repository\ReviewRepository;
+use App\Repository\UserRepository;
 use App\Security\Security;
 use App\Tools\DateFrench;
+
+$reviewRepository = new ReviewRepository();
 
 require_once _ROOTPATH_ . '/templates/header.php';
 /** @var App\Entity\Movie $movie */
@@ -41,17 +45,32 @@ require_once _ROOTPATH_ . '/templates/header.php';
             /** @var App\Entity\Director $director */
         ?> <h2 class="show-movie-director"><?= $director->getFirstName() . " " . $director->getLastName() ?></h2>
         <?php } ?>
+        <div>
+            <?php
+            // étoiles note moyenne du film
+            $reviewRatingAverage =  round($reviewRepository->getAverageRatingForMovie($movie->getId()));
+            $starsHtmlAverage = '';
+            for ($i = 1; $i <= 5; $i++) {
+                if ($i <= $reviewRatingAverage) {
+                    $starsHtmlAverage .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
+                } else {
+                    $starsHtmlAverage .= '<span>&#9734;</span>'; // Étoile vide
+                }
+            }
+            ?>
+            <p><?= $starsHtmlAverage ?></p>
+        </div>
         <p class="lead"><?= $movie->getSynopsys() ?></p>
-    </div>
+
 </section>
 
+<!-- ************************ formulaire rate ******************************* -->
 <?php if (Security::isLogged()) { ?>
-    <!-- ************************ formulaire rate ******************************* -->
     <section class="row flex-lg-row-reverse align-items-start g-5 py-2 w-100 rates-section">
 
         <h3>Notez ce film :</h3>
 
-        <form action="#" method="post">
+        <form method="post" class="form-post-review">
             <label for="rate">Note <span class="rate-span">(cliquez les étoiles)</span></label>
             <fieldset>
                 <div class="rate">
@@ -74,6 +93,9 @@ require_once _ROOTPATH_ . '/templates/header.php';
                     <input type="radio" id="rate_5" name="rate" value="5">
                     <label for="rate_5">5</label>
                 </div>
+                <!-- données cachées comme le film l'utilisateur -->
+                <input type="hidden" name="user_id" value="<?= Security::getCurrentUserId() ?>">
+                <input type="hidden" name="movie_id" value="<?= $movie->getId() ?>">
             </fieldset>
             <div>
                 <label for="review">Critique</label>
@@ -97,63 +119,56 @@ require_once _ROOTPATH_ . '/templates/header.php';
     </a>
 <?php } ?>
 
-
 <!-- ************************ all rates for the movie ******************************* -->
-<section class="row flex-lg-row-reverse align-items-start g-5 py-5 w-100 comments-section">
+<section class="row flex-column align-items-center g-5 py-5 w-100 comments-section">
 
     <h3>liste des commentaires pour ce film</h3>
-
-
     <?php
+    // récup les commentaires approuvés pour ce film
 
+    $reviewsByMovie = $reviewRepository->findAllByMovieId($movie->getId());
 
-    // repository
-    // Récupérez les données de la note de l'utilisateur depuis la base de données
-    // faire la boucle des commentaires 
-
-
-    $userRating =  5;
-    $userName = 'Toto';
-    $userDate = "2024-07-17 08:08:48";
-    $userDateFormated = DateFrench::formatDateAdimInFrench($userDate);
-    $userHourFormated = DateFrench::formatHourInFrench($userDate);
-    $userHourFormatedFinal = str_replace(':', 'h', $userHourFormated);
-
-    $userComment = 'Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor accumsan tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Nulla quis lorem ut libero malesuada feugiat.
-Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Nulla porttitor accumsan tincidunt. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.';
-
-    // Générez le code HTML pour afficher les étoiles colorées
-    $starsHtml = '';
-    for ($i = 1; $i <= 5; $i++) {
-        if ($i <= $userRating) {
-            $starsHtml .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
-        } else {
-            $starsHtml .= '<span>&#9734;</span>'; // Étoile vide
+    foreach ($reviewsByMovie as $review) {
+        // Générez le code HTML pour afficher les étoiles colorées
+        $reviewRating =  $review->getRate();
+        $starsHtml = '';
+        for ($i = 1; $i <= 5; $i++) {
+            if ($i <= $reviewRating) {
+                $starsHtml .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
+            } else {
+                $starsHtml .= '<span>&#9734;</span>'; // Étoile vide
+            }
         }
-    }
+
+        $userRepository = new UserRepository();
+        $user = $userRepository->findOneById($review->getUserId());
+        $reviewDate = $review->getCreatedAt();
+        $reviewDateFormated = DateFrench::formatDateAdimInFrench($reviewDate);
+        $reviewHourFormated = DateFrench::formatHourInFrench($reviewDate);
+        $reviewHourFormatedFinal = str_replace(':', 'h', $reviewHourFormated);
 
     ?>
-
-
-    <article class='col card-item comments-block'>
-        <div class="card w-100">
-            <div class="card-body comment-block">
-                <div class="comment-left-block">
-                    <h5 class="card-title"><?= $userName ?></h5>
-                    <div class="user-rating">
-                        <p><?= $starsHtml ?> </p>
-                        <p><?= $userDateFormated ?></p>
-                        <p><?= $userHourFormatedFinal ?></p>
+        <article class='col card-item comments-block'>
+            <div class="card w-100">
+                <div class="card-body comment-block">
+                    <div class="comment-left-block">
+                        <h5 class="card-title"><?= $user->getNickname() ?></h5>
+                        <div class="user-rating">
+                            <p><?= $starsHtml ?> </p>
+                            <p><?= $reviewDateFormated ?></p>
+                            <p><?= $reviewHourFormatedFinal ?></p>
+                        </div>
                     </div>
+                    <p class="comment-right-block"><?= $review->getReview() ?></p>
                 </div>
-                <p class="comment-right-block"><?= $userComment ?></p>
             </div>
-        </div>
-    </article>
+        </article>
+
+    <?php  } ?>
+
+
+
 </section>
-
-
-
 
 
 <?php require_once _ROOTPATH_ . '/templates/footer.php'; ?>

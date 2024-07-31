@@ -86,6 +86,9 @@ class ReviewController extends Controller
                 }
 
 
+
+
+
                 // ***************** save genre ********************
                 if (isset($_POST['saveReview'])) {
 
@@ -93,6 +96,13 @@ class ReviewController extends Controller
                         $_POST['id'] = intval($review['id']);
                        
                     };
+
+
+                    echo '<pre>';
+                    print_r($_POST);
+                    echo '</pre>';
+
+                    die;
 
                     $reviewObject = new Review();
                     $reviewObject->hydrate($_POST);

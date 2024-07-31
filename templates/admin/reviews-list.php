@@ -132,7 +132,7 @@ $totalPages = ceil($totalReviews / _ADMIN_ITEM_PER_PAGE_);
             <ul class="pagination">
                 <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
                     <li class="page-item <?= ($i === $pages) ? "active" : '' ?>">
-                        <a class="page-link" href="?controller=admin&action=genres&pages=<?= $i; ?>"><?= $i ?></a>
+                        <a class="page-link" href="?controller=admin&action=reviews&pages=<?= $i; ?>"><?= $i ?></a>
                     </li>
                 <?php } ?>
             </ul>

@@ -24,8 +24,9 @@ class ReviewRepository extends Repository
 
     public function findAllByMovieId(int $movie_id): array
     {
-        $query = $this->pdo->prepare("SELECT * FROM review WHERE movie_id = :movie_id");
+        $query = $this->pdo->prepare("SELECT * FROM review WHERE movie_id = :movie_id AND approuved = :approuved ORDER BY created_at DESC");
         $query->bindParam(':movie_id', $movie_id, $this->pdo::PARAM_INT);
+        $query->bindValue(':approuved', 1, $this->pdo::PARAM_INT);
         $query->execute();
         $reviews = $query->fetchAll($this->pdo::FETCH_ASSOC);
 
@@ -136,7 +137,7 @@ class ReviewRepository extends Repository
     function getAverageRatingForMovie(int $movieId): ?float
     {
         $query = $this->pdo->prepare("SELECT movie_id, AVG(rate) AS average_rating FROM review WHERE movie_id = :movie_id GROUP BY movie_id");
-        $query->bindParam(':id', $movieId, $this->pdo::PARAM_INT);
+        $query->bindParam(':movie_id', $movieId, $this->pdo::PARAM_INT);
         $query->execute();
         $row = $query->fetch(PDO::FETCH_ASSOC);
         if ($row) {
@@ -144,6 +145,7 @@ class ReviewRepository extends Repository
         }
         return null;
     }
+
 
     public function getTotalReview(): int|bool
     {

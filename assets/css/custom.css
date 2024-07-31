@@ -336,7 +336,7 @@ box-shadow: none!important;
     cursor: pointer;
 }
 
-input[readonly], .movie-form p {
+input[readonly], .movie-form {
     color: #9a9fa8;
 }
 
@@ -420,18 +420,31 @@ input[readonly], .movie-form p {
  
 /* ************ LISTE COMMENTAIRES ************* */
 
+.comments-section article {
+    width: 100%;
+}
+
+
 .comment-block {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 1rem!important;
+    padding: 0.8rem!important;
 
 }
+
+.comment-left-block h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
 
 .comment-right-block {
     padding-top: 1rem;
+    font-size: 0.9rem;
 }
+
 
 .user-rating p {
     margin: 0;

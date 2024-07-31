@@ -65,6 +65,10 @@ class GenreController extends Controller
                         'name' => $genre->getName(),
                     ];
 
+                    echo '<pre>';
+                    print_r($genre);
+                    echo '</pre>';
+                    die;
                     if ($genre === false) {
                         $errors[] = "Le genre n\'existe pas";
                     }
