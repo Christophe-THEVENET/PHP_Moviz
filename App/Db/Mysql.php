@@ -2,7 +2,6 @@
 
 namespace App\Db;
 
-
 class Mysql 
 {
     private $db_name;

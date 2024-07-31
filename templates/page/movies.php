@@ -8,10 +8,7 @@ require_once _ROOTPATH_ . '/templates/header.php';
 
 $movieRepository = new MovieRepository();
 $movies = $movieRepository->findAll();
-
 ?>
-
-
 
 <h3 class="my-5">N'hésitez pas a poster votre critique !</h3>
 

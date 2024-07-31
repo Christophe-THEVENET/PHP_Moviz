@@ -31,7 +31,6 @@ require_once dirname(__DIR__) . "/header.php";
             <?php } ?>
         </div>
 
-
         <input type="submit" name="saveDirector" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le réalisateur" <?php } else { ?> value="Ajouter le réalisateur" <?php } ?>>
 
     </form>

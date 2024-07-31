@@ -15,8 +15,6 @@ require_once dirname(__DIR__) . '/header.php';
 
 <form method="POST">
     
-
-
     <div class="mb-3">
         <label for="nickname" class="form-label">Pseudo</label>
         <input type="text" class="form-control <?= (isset($errors['nickname']) ? 'is-invalid' : '') ?>" id="nickname" name="nickname" value="">

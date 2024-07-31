@@ -1,5 +1,4 @@
 <?php
-
 // récup requete ajax post
 $reviewId = $_POST['review_id'];
 $reviewApprouved = $_POST['review_approuved'];

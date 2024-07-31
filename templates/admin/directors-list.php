@@ -15,7 +15,6 @@ $directorRepository = new DirectorRepository();
 $totalDirectors = $directorRepository->getTotalDirector();
 // 55/10 => 5.5 => 6 (ceil)
 $totalPages = ceil($totalDirectors / _ADMIN_ITEM_PER_PAGE_);
-
 ?>
 
 <section class="w-100 mx-3">
@@ -26,7 +25,6 @@ $totalPages = ceil($totalDirectors / _ADMIN_ITEM_PER_PAGE_);
             <button type="button" class="btn btn-secondary btn-sm">Ajouter un réalisateur</button>
         </a>
     </div>
-
 
     <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {
@@ -65,7 +63,6 @@ $totalPages = ceil($totalDirectors / _ADMIN_ITEM_PER_PAGE_);
         </thead>
         <tbody>
             <?php foreach ($directors as $director) {
-
 
                 /** @var App\Entity\Director $director */ ?>
                 <tr>

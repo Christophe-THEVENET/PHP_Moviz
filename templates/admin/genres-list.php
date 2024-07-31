@@ -16,7 +16,6 @@ $totalGenres = $genreRepository->getTotalGenre();
 // 55/10 => 5.5 => 6 (ceil)
 $totalPages = ceil($totalGenres / _ADMIN_ITEM_PER_PAGE_);
 ?>
-
 <section class="w-100 mx-3">
     <div class="admin-title-button">
         <h1>Genres</h1>
@@ -25,7 +24,6 @@ $totalPages = ceil($totalGenres / _ADMIN_ITEM_PER_PAGE_);
             <button type="button" class="btn btn-secondary btn-sm">Ajouter un genre</button>
         </a>
     </div>
-
 
     <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {

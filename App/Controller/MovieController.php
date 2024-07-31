@@ -86,7 +86,6 @@ class MovieController extends Controller
                 $movieRepository = new MovieRepository();
                 $movies = $movieRepository->findAll(_ADMIN_ITEM_PER_PAGE_, $pages);
 
-
                 $this->render('admin/movies-list', [
 
                     'errors' => $errors,
@@ -228,7 +227,6 @@ class MovieController extends Controller
                             //lier les réalisateurs au film
                             $movieDirectorRepository->linkDirectorsByMovie($movieIdJustPersisted, $directorIdsByMovie);
                         }
-
                         
                         if (isset($movie['id'])) {
                             $messages[] = 'Modification du film réussi !';
@@ -294,7 +292,6 @@ class MovieController extends Controller
                     } else {
                         $errors[] = "Problème pour supprimer le réalisateur";
                     }
-
 
                     $_SESSION['messages'] = $messages;
                     $_SESSION['errors'] = $errors;

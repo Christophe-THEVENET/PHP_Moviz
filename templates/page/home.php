@@ -8,7 +8,6 @@ require_once _ROOTPATH_ . '/templates/header.php';
 
 $movieRepository = new MovieRepository();
 $moviesForHome = $movieRepository->findAll(_ITEM_PER_HOME_PAGE_);
-
 ?>
 
 <section class="row flex-lg-row-reverse align-items-center g-5 banniere">

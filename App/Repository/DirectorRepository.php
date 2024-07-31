@@ -150,7 +150,5 @@ class DirectorRepository extends Repository
 
         return $directorsIds;
     }
-
-
    
 }

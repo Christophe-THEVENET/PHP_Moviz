@@ -7,8 +7,6 @@ use PDO;
 class MovieGenreRepository extends Repository
 {
 
-
-
     public function persistGenresByFilm(int $movieId, array $genreIds)
     {
         // Delete existing records for the film in the junction table

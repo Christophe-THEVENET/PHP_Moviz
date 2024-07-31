@@ -11,7 +11,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family:  "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 .rate {
     float: left;
@@ -80,10 +80,9 @@ body {
     }
 }
 
-
 .alert-success.message {
     position: absolute;
-    background-color: #16ec2f!important;
+    background-color: #16ec2f !important;
     color: rgb(255, 255, 255);
     font-weight: bold;
 }
@@ -91,33 +90,29 @@ body {
 label {
     color: #8e4637;
     font-family: 'Bebas Neue';
-    margin-bottom: -1rem!important;
+    margin-bottom: -1rem !important;
     font-size: 18px;
 }
 
-
 .form-check-input:checked {
-    background-color: #8e4637!important;
-
+    background-color: #8e4637 !important;
 }
 
 .genre-title {
-     color: #8e4637;
+    color: #8e4637;
     font-family: 'Bebas Neue';
     font-size: 18px;
     margin-top: 2rem;
-    margin-bottom: 0rem!important;
-
+    margin-bottom: 0rem !important;
 }
 
 .director-title {
-     color: #8e4637;
+    color: #8e4637;
     font-family: 'Bebas Neue';
     font-size: 18px;
     margin-top: 2rem;
-    margin-bottom: 0rem!important;
+    margin-bottom: 0rem !important;
 }
-
 
 .form-check-label {
     color: black;
@@ -127,51 +122,50 @@ label {
 .directors-block .form-label {
     color: black;
     font-size: 14px;
-
 }
 
 .file-upload {
-  position: relative;
-  overflow: hidden;
-  width: 150px;
-  height: 30px;
-  border: 2px solid #8e4637;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 30px;
+    border: 2px solid #8e4637;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .file-upload:hover {
-  background-color: #8e453717;
-  transition: 0.3s ease-in-out;
+    background-color: #8e453717;
+    transition: 0.3s ease-in-out;
 }
 
 .file-input__input {
-  font-size: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
 }
 
 .file-input__label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
 }
 
 .file-input__label span {
-  font-size: 14px;
-  color: #8e4637;
+    font-size: 14px;
+    color: #8e4637;
 }
 
 .directors-block a {
     display: inline-block;
     height: 10px;
-    margin-top: 2rem!important;
+    margin-top: 2rem !important;
 }
 
 .bi-x-square-fill {
@@ -184,9 +178,6 @@ label {
     transition: 0.3s ease-in-out;
 }
 
-
-
-
 /* *********** home ************** */
 
 .banniere {
@@ -195,9 +186,7 @@ label {
 }
 
 .banniere h1 {
-     font-family: "Montserrat", sans-serif;
-    
-
+    font-family: 'Montserrat', sans-serif;
 }
 
 .banniere p {
@@ -206,9 +195,8 @@ label {
 
 h3 {
     font-family: 'Bebas Neue';
-    color: #8e4637 ;
+    color: #8e4637;
 }
-
 
 article:hover {
     box-shadow: 1px 1px 6px#36415663;
@@ -319,28 +307,24 @@ input[name='saveMovie'] {
     text-align: justify;
 }
 
-
-
 /* ***************** liste des commentaires ************ */
 
-.comments-section, .rates-section {
+.comments-section,
+.rates-section {
     max-width: 50rem;
 }
 
 .comments-block:hover {
-box-shadow: none!important;
+    box-shadow: none !important;
 }
-
 
 .form-check-input:hover {
     cursor: pointer;
 }
 
-input[readonly], .movie-form {
+.readonly {
     color: #9a9fa8;
 }
-
-
 
 /* ***************** tous les films ************ */
 
@@ -349,18 +333,15 @@ input[readonly], .movie-form {
     row-gap: 5rem;
 }
 
-
-
 /* ***************** étoiles notation ************ */
 
 .rates-section form {
-    margin-top: 2rem!important;
+    margin-top: 2rem !important;
 }
 
-
 .rate-text {
-  font-size: 0.7rem;
-  margin-bottom: 0.3rem;
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
 }
 
 .rate-span {
@@ -372,27 +353,27 @@ input[readonly], .movie-form {
 }
 
 .rate {
-  display: flex;
-  flex-flow: row-reverse;
-  justify-content: left;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: left;
 }
 
-.rate input[type="radio"] {
-  display: none;
+.rate input[type='radio'] {
+    display: none;
 }
 
 .rate:not(:checked) > label {
-  float: right;
-  width: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-  color: #ccc;
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
 
 .rate:not(:checked) > label:before {
-  content: '★ ';
+    content: '★ ';
 }
 
 .comments-section {
@@ -400,14 +381,13 @@ input[readonly], .movie-form {
     padding: 0;
 }
 
-
 .rate > input:checked ~ label {
-  color: #ffc700;
+    color: #ffc700;
 }
 
 .rate.enabled:not(:checked) > label:hover,
 .rate.enabled:not(:checked) > label:hover ~ label {
-  color: #deb217;
+    color: #deb217;
 }
 
 .rate.enabled > input:checked + label:hover,
@@ -415,23 +395,21 @@ input[readonly], .movie-form {
 .rate.enabled > input:checked ~ label:hover,
 .rate.enabled > input:checked ~ label:hover ~ label,
 .rate.enabled > label:hover ~ input:checked ~ label {
-  color: #c59b08;
+    color: #c59b08;
 }
- 
+
 /* ************ LISTE COMMENTAIRES ************* */
 
 .comments-section article {
     width: 100%;
 }
 
-
 .comment-block {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 0.8rem!important;
-
+    padding: 0.8rem !important;
 }
 
 .comment-left-block h5 {
@@ -439,18 +417,15 @@ input[readonly], .movie-form {
     margin-bottom: 0;
 }
 
-
 .comment-right-block {
     padding-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
-
 
 .user-rating p {
     margin: 0;
     padding: 0;
 }
-
 
 /* ********************* sidebar admin *************** */
 
@@ -461,7 +436,6 @@ input[readonly], .movie-form {
 .sidebar__title a:hover {
     color: #cccccc;
 }
-/* ********************* liste commentaires *************** */
 
 /* ----- affiche tous le commentaire hover -----*/
 
@@ -470,27 +444,23 @@ input[readonly], .movie-form {
     font-size: 11px;
 }
 .tooltip {
-  visibility: hidden;
-  width: 300px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 1rem;
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  margin-left: -100px;
-  opacity: 0;
-  transition:  0.3s;
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 1rem;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: 0.3s;
 }
 
 .review-case:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.3s;
-
-
-
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s;
 }
-

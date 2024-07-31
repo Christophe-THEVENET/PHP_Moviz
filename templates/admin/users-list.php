@@ -4,8 +4,6 @@ use App\Repository\UserRepository;
 use App\Security\Security;
 use App\Tools\DateFrench;
 
-
-
 require_once dirname(__DIR__) . "/header.php";
 
 if (isset($_GET["pages"])) {
@@ -18,9 +16,7 @@ $userRepository = new UserRepository();
 $totalUsers = $userRepository->getTotalUser();
 // 55/10 => 5.5 => 6 (ceil)
 $totalPages = ceil($totalUsers / _ADMIN_ITEM_PER_PAGE_);
-
 ?>
-
 <section class="w-100 mx-3">
     <div class="admin-title-button">
         <h1>Utilisateurs</h1>
@@ -29,7 +25,6 @@ $totalPages = ceil($totalUsers / _ADMIN_ITEM_PER_PAGE_);
             <button type="button" class="btn btn-secondary btn-sm">Ajouter un utilisateur</button>
         </a>
     </div>
-
 
     <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {
@@ -94,7 +89,6 @@ $totalPages = ceil($totalUsers / _ADMIN_ITEM_PER_PAGE_);
         </tbody>
     </table>
 
-
     <!--------------------  pagination -------------------- -->
     <?php if ($totalPages > 1) { ?>
         <nav aria-label="Page navigation example">
@@ -108,8 +102,6 @@ $totalPages = ceil($totalUsers / _ADMIN_ITEM_PER_PAGE_);
         </nav>
     <?php } ?>
     <!----------------------------------------------------- -->
-
-
 
 </section>
 

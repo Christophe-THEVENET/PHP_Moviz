@@ -65,10 +65,6 @@ class GenreController extends Controller
                         'name' => $genre->getName(),
                     ];
 
-                    echo '<pre>';
-                    print_r($genre);
-                    echo '</pre>';
-                    die;
                     if ($genre === false) {
                         $errors[] = "Le genre n\'existe pas";
                     }
@@ -76,7 +72,6 @@ class GenreController extends Controller
                 } else {
                     $pageTitle = "Ajouter un genre";
                 }
-
 
                 // ***************** save genre ********************
                 if (isset($_POST['saveGenre'])) {
@@ -88,7 +83,6 @@ class GenreController extends Controller
                     $genreObject = new Genre();
                     $genreObject->hydrate($_POST);
 
-
                     if (empty($errors)) {
                         $GenreRepository = new GenreRepository();
                         $GenreRepository->persist($genreObject);
@@ -98,7 +92,6 @@ class GenreController extends Controller
                             $genre = [
                                 'id' => '',
                                 'name' => '',
-
                             ];
                         } else {
                             $messages[] = 'Ajout de genre réussi !';
@@ -108,12 +101,11 @@ class GenreController extends Controller
                     header('location:' . Security::navigateTo('admin', 'genres'));
                 }
 
-
                 $this->render('admin/genre-add-update', [
 
                     'errors' => $errors,
                     'messages' => $messages,
-                    'user' => $genre,
+                    'genre' => $genre,
                     'pageTitle' => $pageTitle
                 ]);
             } else {
@@ -134,8 +126,7 @@ class GenreController extends Controller
                 $messages = [];
                 $genre = false;
 
-
-                // ***************** get user for delete ********************
+                // ***************** get genre for delete ********************
                 if (isset($_GET['id'])) {
 
                     $GenreRepository = new GenreRepository();
@@ -146,7 +137,7 @@ class GenreController extends Controller
                     }
                 }
 
-                // ***************** delete user ********************
+                // ***************** delete genre ********************
                 if (isset($genre)) {
 
                     $res = $GenreRepository->delete($genre);
@@ -156,7 +147,6 @@ class GenreController extends Controller
                     } else {
                         $errors[] = "Problème pour supprimer le genre";
                     }
-
 
                     $_SESSION['messages'] = $messages;
                     $_SESSION['errors'] = $errors;

@@ -33,7 +33,6 @@ class AuthController extends Controller
         if (isset($_POST['loginUser'])) {
 
             $userRepository = new UserRepository();
-
             $user = $userRepository->findOneByEmail($_POST['email']);
 
             if ($user && Security::verifyPassword($_POST['password'], $user)) {

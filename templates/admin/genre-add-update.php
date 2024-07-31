@@ -15,7 +15,6 @@ require_once dirname(__DIR__) . "/header.php";
     <?php } ?>
 
     <form method="POST">
-
         <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
             <input type="text" class="form-control <?= (isset($errors['name']) ? 'is-invalid' : '') ?>" id="name" name="name" value="<?= $genre['name'] ?>">
@@ -23,12 +22,8 @@ require_once dirname(__DIR__) . "/header.php";
                 <div class="invalid-feedback"><?= $errors['name'] ?></div>
             <?php } ?>
         </div>
-     
-
         <input type="submit" name="saveGenre" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le genre" <?php } else { ?> value="Ajouter le genre" <?php } ?>>
-
     </form>
-
 </section>
 
 <?php

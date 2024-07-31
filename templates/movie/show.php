@@ -10,7 +10,6 @@ $reviewRepository = new ReviewRepository();
 require_once _ROOTPATH_ . '/templates/header.php';
 /** @var App\Entity\Movie $movie */
 ?>
-
 <!-- ************************ movie ******************************* -->
 <section class="row flex-lg-row-reverse align-items-center g-5 py-5">
     <div class="col-10 col-sm-8 col-lg-6">
@@ -48,17 +47,20 @@ require_once _ROOTPATH_ . '/templates/header.php';
         <div>
             <?php
             // étoiles note moyenne du film
-            $reviewRatingAverage =  round($reviewRepository->getAverageRatingForMovie($movie->getId()));
-            $starsHtmlAverage = '';
-            for ($i = 1; $i <= 5; $i++) {
-                if ($i <= $reviewRatingAverage) {
-                    $starsHtmlAverage .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
-                } else {
-                    $starsHtmlAverage .= '<span>&#9734;</span>'; // Étoile vide
+            $reviewRatingAverage =  $reviewRepository->getAverageRatingForMovie($movie->getId());
+            if ($reviewRatingAverage !== null) {
+                $reviewRatingAverageRound = round($reviewRatingAverage);
+                $starsHtmlAverage = '';
+                for ($i = 1; $i <= 5; $i++) {
+                    if ($i <= $reviewRatingAverageRound) {
+                        $starsHtmlAverage .= '<span style="color: gold;">&#9733;</span>'; // Étoile pleine
+                    } else {
+                        $starsHtmlAverage .= '<span>&#9734;</span>'; // Étoile vide
+                    }
                 }
-            }
             ?>
-            <p><?= $starsHtmlAverage ?></p>
+                <p><?= $starsHtmlAverage ?></p>
+            <?php } ?>
         </div>
         <p class="lead"><?= $movie->getSynopsys() ?></p>
 
@@ -122,12 +124,14 @@ require_once _ROOTPATH_ . '/templates/header.php';
 <!-- ************************ all rates for the movie ******************************* -->
 <section class="row flex-column align-items-center g-5 py-5 w-100 comments-section">
 
-    <h3>liste des commentaires pour ce film</h3>
     <?php
     // récup les commentaires approuvés pour ce film
+    $reviewsByMovie = $reviewRepository->findAllByMovieId($movie->getId()); ?>
+  <?php  
+   if (!empty($reviewsByMovie)) { ?>
 
-    $reviewsByMovie = $reviewRepository->findAllByMovieId($movie->getId());
-
+      <h3>liste des commentaires pour ce film</h3>
+ <?php }
     foreach ($reviewsByMovie as $review) {
         // Générez le code HTML pour afficher les étoiles colorées
         $reviewRating =  $review->getRate();
@@ -169,6 +173,5 @@ require_once _ROOTPATH_ . '/templates/header.php';
 
 
 </section>
-
 
 <?php require_once _ROOTPATH_ . '/templates/footer.php'; ?>

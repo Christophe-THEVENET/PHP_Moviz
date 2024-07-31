@@ -116,8 +116,6 @@ require_once dirname(__DIR__) . "/header.php";
         <input id="add-director" type="button" value="Ajouter un réalisateur" class="btn btn-outline-primary btn-sm">
         <!-- **************************************************************** -->
 
-
-
         <input type="submit" name="saveMovie" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le film" <?php } else { ?> value="Ajouter le film" <?php } ?>>
 
     </form>
@@ -125,9 +123,6 @@ require_once dirname(__DIR__) . "/header.php";
 </section>
 
 <?php
-
-
-
 
 require_once dirname(__DIR__) . "/footer.php";
 ?>

@@ -63,10 +63,8 @@ class ReviewController extends Controller
                 if (isset($_GET['id'])) {
 
                     $reviewRepository = new ReviewRepository();
-                    $review = $reviewRepository->findOneById($_GET['id']);
-
-                 
-
+                    $review = $reviewRepository->findOneById((int)$_GET['id']);
+               
                     $review = [
                         'id' => $review->getId(),
                         'user_id' => $review->getUserId(),
@@ -75,8 +73,7 @@ class ReviewController extends Controller
                         'review' => $review->getReview(),
                         'approuved' => $review->getApprouved(),
                     ];
-                 
-                
+                                 
                     if ($review === false) {
                         $errors[] = "Le commentaire n\'existe pas";
                     }
@@ -85,24 +82,12 @@ class ReviewController extends Controller
                     $pageTitle = "Ajouter un commentaire";
                 }
 
-
-
-
-
-                // ***************** save genre ********************
+                // ***************** save review ********************
                 if (isset($_POST['saveReview'])) {
 
                     if (isset($review['id'])) {
-                        $_POST['id'] = intval($review['id']);
-                       
+                        $_POST['id'] = (int)($review['id']);
                     };
-
-
-                    echo '<pre>';
-                    print_r($_POST);
-                    echo '</pre>';
-
-                    die;
 
                     $reviewObject = new Review();
                     $reviewObject->hydrate($_POST);
@@ -127,7 +112,6 @@ class ReviewController extends Controller
                     $_SESSION['messages'] = $messages;
                     header('location:' . Security::navigateTo('admin', 'reviews'));
                 }
-
 
                 $this->render('admin/review-add-update', [
 
@@ -154,7 +138,6 @@ class ReviewController extends Controller
                 $messages = [];
                 $review = false;
 
-
                 // ***************** get review for delete ********************
                 if (isset($_GET['id'])) {
 
@@ -166,7 +149,7 @@ class ReviewController extends Controller
                     }
                 }
 
-                // ***************** delete user ********************
+                // ***************** delete review ********************
                 if (isset($review)) {
 
                     $res = $reviewRepository->delete($review);
@@ -176,7 +159,6 @@ class ReviewController extends Controller
                     } else {
                         $errors[] = "Problème pour supprimer le commentaire";
                     }
-
 
                     $_SESSION['messages'] = $messages;
                     $_SESSION['errors'] = $errors;

@@ -16,9 +16,6 @@ use App\Tools\DateFrench;
 $userRepository = new UserRepository();
 $movieRepository = new MovieRepository();
 
-
-
-
 if (isset($_GET["pages"])) {
     $pages = (int)$_GET["pages"];
 } else {
@@ -35,11 +32,7 @@ $totalPages = ceil($totalReviews / _ADMIN_ITEM_PER_PAGE_);
     <div class="admin-title-button">
         <h1>Commentaires</h1>
         <!-- <a href="index.php?controller=admin&action=user"> -->
-        <a href="<?= Security::navigateTo('admin', 'review') ?>">
-            <button type="button" class="btn btn-secondary btn-sm">Ajouter un commentaire</button>
-        </a>
     </div>
-
 
     <?php // ****** success messages ********
     if (isset($_SESSION['messages'])) {
@@ -83,7 +76,6 @@ $totalPages = ceil($totalReviews / _ADMIN_ITEM_PER_PAGE_);
         <tbody>
             <?php foreach ($reviews as $review) {
 
-
                 $userId = $review->getUserId();
                 $movieId = $review->getMovieId();
 
@@ -95,16 +87,12 @@ $totalPages = ceil($totalReviews / _ADMIN_ITEM_PER_PAGE_);
 
                 /** @var App\Entity\Review $review */ ?>
                 <tr>
-
-
-
-
                     <th scope="row"><?= $review->getId() ?></th>
                     <td><?= $user->getNickname() ?></td>
                     <td><?= $movie->getName() ?></td>
                     <td><?= $review->getRate() ?></td>
                     <td class="review-case">
-                        <?= substr(htmlspecialchars($review->getReview()), 0, 50) ?>
+                        <?= substr(htmlspecialchars($review->getReview()), 0, 30) ?>
                         <div class="tooltip"><?= htmlspecialchars($review->getReview()) ?></div>
                     </td>
                     <td><?= $commentCreatedAtFormated ?></td>

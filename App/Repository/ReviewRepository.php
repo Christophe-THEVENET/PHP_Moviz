@@ -146,7 +146,6 @@ class ReviewRepository extends Repository
         return null;
     }
 
-
     public function getTotalReview(): int|bool
     {
         $query = $this->pdo->prepare("SELECT COUNT(*) as total FROM review");
@@ -154,7 +153,6 @@ class ReviewRepository extends Repository
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result['total'];
     }
-
 
     public function approuveReview(int $reviewId, int $approuvedValue)
     {
@@ -170,5 +168,3 @@ class ReviewRepository extends Repository
     }
 }
 
-
-// UPDATE review SET approuved = 1  WHERE id = 8

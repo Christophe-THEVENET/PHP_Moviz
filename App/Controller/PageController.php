@@ -25,16 +25,11 @@ class PageController extends Controller
         }
     }
 
-    /*
-    Exemple d'appel depuis l'url
-        ?controller=page&action=home
-    */
     protected function home()
     {
 
         $this->render('page/home', [
-            'test' => 555,
-            'nom' => "Christophe",
+          
         ]);
     }
 
@@ -42,8 +37,7 @@ class PageController extends Controller
     {
 
         $this->render('page/movies', [
-            'test' => 555,
-            'nom' => "Christophe",
+           
         ]);
     }
 }

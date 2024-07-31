@@ -140,14 +140,12 @@ class UserController extends Controller
                     $pageTitle = "Ajouter un utilisateur";
                 }
 
-
                 // ***************** save user ********************
                 if (isset($_POST['saveUser'])) {
 
                     if (isset($user['id'])) {
                         $_POST['id'] = $user['id'];
                     };
-
 
                     $userObject = new User();
                     $userValidator = new UserValidator();
@@ -177,7 +175,6 @@ class UserController extends Controller
                     header('location:' . Security::navigateTo('admin', 'users'));
                 }
 
-
                 $this->render('admin/user-add-update', [
 
                     'errors' => $errors,
@@ -203,7 +200,6 @@ class UserController extends Controller
                 $messages = [];
                 $user = false;
 
-
                 // ***************** get user for delete ********************
                 if (isset($_GET['id'])) {
 
@@ -226,19 +222,11 @@ class UserController extends Controller
                         $errors[] = "Problème pour supprimer l'utilisateur";
                     }
 
-
                     $_SESSION['messages'] = $messages;
                     $_SESSION['errors'] = $errors;
                     header('location:' . Security::navigateTo('admin', 'users'));
                 }
-
-
-                /*  $this->render('admin/user-add-update', [
-
-                    'errors' => $errors,
-                    'messages' => $messages,
-                    'user' => $user,
-                ]); */
+                
             } else {
                 header('location:' . Security::navigateTo('page', 'home'));
             }

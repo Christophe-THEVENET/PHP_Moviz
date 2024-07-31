@@ -6,7 +6,6 @@ use App\Tools\NavigationTools;
 require_once _ROOTPATH_ . '/config.php';
 
 $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
-
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +31,6 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
                 <img src="<?= ASSETS_IMAGES_FOLDER . '/logo-moviz.png' ?>" alt="" width="150">
-
             </a>
             <ul class="nav nav-pills">
                 <li class="nav-item">

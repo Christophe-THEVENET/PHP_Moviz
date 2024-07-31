@@ -4,8 +4,7 @@ use App\Security\Security;
 
 require_once dirname(__DIR__) . '/header.php'; ?>
 
-
-<h1>Login</h1>
+<h1>Connexion</h1>
 
 <?php foreach ($errors as $error) { ?>
     <div class="alert alert-danger" role="alert">

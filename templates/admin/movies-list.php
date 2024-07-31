@@ -15,12 +15,8 @@ if (isset($_GET["pages"])) {
 $movieRepository = new MovieRepository();
 $totalMovies = $movieRepository->getTotalMovie();
 
-
-
-
 // 55/10 => 5.5 => 6 (ceil)
 $totalPages = ceil($totalMovies / _ADMIN_ITEM_PER_PAGE_);
-
 ?>
 
 <section class="w-100 mx-3">
@@ -78,7 +74,6 @@ $totalPages = ceil($totalMovies / _ADMIN_ITEM_PER_PAGE_);
 
                 $movieDuration = $movie->getDuration();
                 $movieDurationFormated = DateFrench::formatHourInFrench($movieDuration);
-
 
                 /** @var App\Entity\Movie $movie */ ?>
                 <tr>

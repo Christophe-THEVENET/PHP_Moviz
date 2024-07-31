@@ -11,14 +11,11 @@ require_once dirname(__DIR__) . "/header.php";
 $userRepository = new UserRepository();
 $movieRepository = new MovieRepository();
 
-$userId = $review['user_id'];
-$movieId = $review['movie_id'];
+$userId = (int)$review['user_id'];
+$movieId = (int)$review['movie_id'];
 
 $user = $userRepository->findOneById($userId);
 $movie = $movieRepository->findOneById($movieId);
-
-
-
 
 ?>
 <section class="w-100 mx-3">
@@ -35,11 +32,11 @@ $movie = $movieRepository->findOneById($movieId);
 
         <div class="mb-3">
             <label for="user_id" class="form-label">Utilisateur</label>
-            <input readonly type="hidden" class="form-control <?= (isset($errors['user_id']) ? 'is-invalid' : '') ?>" id="user_id" name="user_id" value="<?= $review['user_id'] ?>">
+            <input  readonly type="hidden" class="form-control <?= (isset($errors['user_id']) ? 'is-invalid' : '') ?>" id="user_id" name="user_id" value="<?= $review['user_id'] ?>">
             <?php if (isset($errors['user_id'])) { ?>
                 <div class="invalid-feedback"><?= $errors['user_id'] ?></div>
             <?php } ?>
-            <p class="form-control"><?= $user->getNickname() ?></p>
+            <p class="form-control readonly"><?= $user->getNickname() ?></p>
         </div>
         <div class=" mb-3">
             <label for="movie_id" class="form-label">Film</label>
@@ -47,7 +44,7 @@ $movie = $movieRepository->findOneById($movieId);
             <?php if (isset($errors['movie_id'])) { ?>
                 <div class="invalid-feedback"><?= $errors['movie_id'] ?></div>
             <?php } ?>
-            <p class="form-control"><?= $movie->getName() ?></p>
+            <p class="form-control readonly"><?= $movie->getName() ?></p>
 
         </div>
         <div class="mb-3">
@@ -56,7 +53,7 @@ $movie = $movieRepository->findOneById($movieId);
             <?php if (isset($errors['rate'])) { ?>
                 <div class="invalid-feedback"><?= $errors['rate'] ?></div>
             <?php } ?>
-            <p class="form-control"><?= $review['rate'] ?></p>
+            <p class="form-control readonly"><?= $review['rate'] ?></p>
 
         </div>
         <div class="mb-3">
@@ -73,8 +70,6 @@ $movie = $movieRepository->findOneById($movieId);
                 <div class="invalid-feedback"><?= $errors['approuved'] ?></div>
             <?php } ?>
         </div>
-
-
 
         <input type="submit" name="saveReview" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le commentaire" <?php } else { ?> value="Ajouter le commentaire" <?php } ?>>
 

@@ -9,7 +9,6 @@ $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
 $userRepository = new UserRepository();
 
 $totalUsers = $userRepository->getTotalUser(); 
-
 ?>
 
 <section class="w-100 mx-3">
@@ -18,10 +17,6 @@ $totalUsers = $userRepository->getTotalUser();
 </section>
 
 <?php
-
-
-
-
 
 
 require_once dirname(__DIR__) . "/footer.php";

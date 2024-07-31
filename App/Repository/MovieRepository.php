@@ -23,7 +23,6 @@ class MovieRepository extends Repository
 
     public function persist(Movie $movie)
     {
-
         if ($movie->getId() !== null) {
             $query = $this->pdo->prepare(
                 'UPDATE movie SET `name` = :name, release_year = :release_year, synopsys = :synopsys, duration = :duration, image_name = :image_name WHERE id = :id'
@@ -33,9 +32,7 @@ class MovieRepository extends Repository
             $query = $this->pdo->prepare(
                 "INSERT INTO movie (`name`,release_year,synopsys,duration,image_name  ) VALUES (:name, :release_year, :synopsys, :duration, :image_name)"
             );
-
         }
-
         $query->bindValue(':name', $movie->getName(), $this->pdo::PARAM_STR);
         $query->bindValue(':release_year', $movie->getReleaseYear(), $this->pdo::PARAM_STR);
         $query->bindValue(':synopsys', $movie->getSynopsys(), $this->pdo::PARAM_STR);
@@ -48,9 +45,7 @@ class MovieRepository extends Repository
         } else {
             $movieId = $movie->getId();
         }
-
         return $movieId;
-
     }
 
     public function findAll(int $limit = null, int $page = null): array|bool
