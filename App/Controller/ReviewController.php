@@ -65,6 +65,8 @@ class ReviewController extends Controller
                     $reviewRepository = new ReviewRepository();
                     $review = $reviewRepository->findOneById($_GET['id']);
 
+                 
+
                     $review = [
                         'id' => $review->getId(),
                         'user_id' => $review->getUserId(),
@@ -73,7 +75,8 @@ class ReviewController extends Controller
                         'review' => $review->getReview(),
                         'approuved' => $review->getApprouved(),
                     ];
-
+                 
+                
                     if ($review === false) {
                         $errors[] = "Le commentaire n\'existe pas";
                     }
@@ -86,19 +89,19 @@ class ReviewController extends Controller
                 // ***************** save genre ********************
                 if (isset($_POST['saveReview'])) {
 
-                    if (isset($genre['id'])) {
-                        $_POST['id'] = $review['id'];
+                    if (isset($review['id'])) {
+                        $_POST['id'] = intval($review['id']);
+                       
                     };
 
                     $reviewObject = new Review();
                     $reviewObject->hydrate($_POST);
-
-
+                
                     if (empty($errors)) {
                         $reviewRepository = new ReviewRepository();
                         $reviewRepository->persist($reviewObject);
 
-                        if (isset($genre['id'])) {
+                        if (isset($review['id'])) {
                             $messages[] = 'Modification du commentaire réussi !';
                             $review = [
                                 'user_id' => '',

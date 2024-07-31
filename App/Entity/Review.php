@@ -20,7 +20,7 @@ class Review extends Entity
         return $this->id;
     }
 
-    public function setId($id): self
+    public function setId(?int $id): self
     {
         $this->id = $id;
 
@@ -32,7 +32,7 @@ class Review extends Entity
         return $this->userId;
     }
 
-    public function setUserId($userId): self
+    public function setUserId(?int $userId): self
     {
         $this->userId = $userId;
 
@@ -44,7 +44,7 @@ class Review extends Entity
         return $this->movieId;
     }
 
-    public function setMovieId($movieId): self
+    public function setMovieId(?int $movieId): self
     {
         $this->movieId = $movieId;
 
@@ -56,7 +56,7 @@ class Review extends Entity
         return $this->rate;
     }
 
-    public function setRate($rate): self
+    public function setRate(?int $rate): self
     {
         $this->rate = $rate;
 
@@ -68,7 +68,7 @@ class Review extends Entity
         return $this->review;
     }
 
-    public function setReview($review): self
+    public function setReview(?string $review): self
     {
         $this->review = $review;
 
@@ -80,7 +80,7 @@ class Review extends Entity
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt): self
+    public function setCreatedAt(?string $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -92,13 +92,13 @@ class Review extends Entity
         return $this->approuved;
     }
 
-    public function setApprouved($approuved): self
+    public function setApprouved(?int $approuved): self
     {
         if ($approuved === null) {
             $approuved = 0;
         }
+
         $this->approuved = $approuved;
-        return $this;
 
         return $this;
     }

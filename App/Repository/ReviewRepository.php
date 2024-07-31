@@ -61,19 +61,20 @@ class ReviewRepository extends Repository
 
         if ($review->getId() !== null) {
             $query = $this->pdo->prepare(
-                'UPDATE review SET user_id = :user_id, ,movie_id = :movie_id, rate = :rate, review = :review WHERE id = :id'
+                'UPDATE review SET user_id = :user_id, movie_id = :movie_id, rate = :rate, review = :review, approuved = :approuved WHERE id = :id'
             );
             $query->bindValue(':id', $review->getId(), $this->pdo::PARAM_INT);
         } else {
             $query = $this->pdo->prepare(
-                "INSERT INTO review (user_id, movie_id, rate, review, created_at) VALUES (:user_id, :movie_id, :rate, :review, NOW())"
+                "INSERT INTO review (user_id, movie_id, rate, review, approuved, created_at) VALUES (:user_id, :movie_id, :rate, :review, :approuved, NOW())"
             );
         }
 
         $query->bindValue(':user_id', $review->getUserId(), $this->pdo::PARAM_INT);
         $query->bindValue(':movie_id', $review->getMovieId(), $this->pdo::PARAM_INT);
         $query->bindValue(':rate', $review->getRate(), $this->pdo::PARAM_INT);
-        $query->bindValue(':review', $review->getReview(), $this->pdo::PARAM_INT);
+        $query->bindValue(':review', $review->getReview(), $this->pdo::PARAM_STR);
+        $query->bindValue(':approuved', $review->getApprouved(), $this->pdo::PARAM_INT);
 
         return $query->execute();
     }

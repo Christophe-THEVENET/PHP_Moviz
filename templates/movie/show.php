@@ -46,50 +46,55 @@ require_once _ROOTPATH_ . '/templates/header.php';
 </section>
 
 <?php if (Security::isLogged()) { ?>
-<!-- ************************ formulaire rate ******************************* -->
-<section class="row flex-lg-row-reverse align-items-start g-5 py-2 w-100 rates-section">
+    <!-- ************************ formulaire rate ******************************* -->
+    <section class="row flex-lg-row-reverse align-items-start g-5 py-2 w-100 rates-section">
 
-    <h3>Notez ce film :</h3>
+        <h3>Notez ce film :</h3>
 
-    <form action="#" method="post">
-        <label for="rate">Note <span class="rate-span">(cliquez les étoiles)</span></label>
-        <fieldset>
-            <div class="rate">
-                <input type="radio" id="rate_1" name="rate" value="1">
-                <label for="rate_1">1</label>
+        <form action="#" method="post">
+            <label for="rate">Note <span class="rate-span">(cliquez les étoiles)</span></label>
+            <fieldset>
+                <div class="rate">
+                    <input type="radio" id="rate_1" name="rate" value="1">
+                    <label for="rate_1">1</label>
+                </div>
+                <div class="rate">
+                    <input type="radio" id="rate_2" name="rate" value="2">
+                    <label for="rate_2">2</label>
+                </div>
+                <div class="rate">
+                    <input type="radio" id="rate_3" name="rate" value="3">
+                    <label for="rate_3">3</label>
+                </div>
+                <div class="rate">
+                    <input type="radio" id="rate_4" name="rate" value="4">
+                    <label for="rate_4">4</label>
+                </div>
+                <div class="rate">
+                    <input type="radio" id="rate_5" name="rate" value="5">
+                    <label for="rate_5">5</label>
+                </div>
+            </fieldset>
+            <div>
+                <label for="review">Critique</label>
+                <textarea id="review" name="review" class="form-control btn-sm"></textarea>
             </div>
-            <div class="rate">
-                <input type="radio" id="rate_2" name="rate" value="2">
-                <label for="rate_2">2</label>
+            <div>
+                <button type="submit" class="btn btn-outline-primary my-2 btn-sm btn-comments">Envoyer</button>
             </div>
-            <div class="rate">
-                <input type="radio" id="rate_3" name="rate" value="3">
-                <label for="rate_3">3</label>
-            </div>
-            <div class="rate">
-                <input type="radio" id="rate_4" name="rate" value="4">
-                <label for="rate_4">4</label>
-            </div>
-            <div class="rate">
-                <input type="radio" id="rate_5" name="rate" value="5">
-                <label for="rate_5">5</label>
-            </div>
-        </fieldset>
-        <div>
-            <label for="review">Critique</label>
-            <textarea id="review" name="review" class="form-control btn-sm"></textarea>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-outline-primary my-2 btn-sm btn-comments">Envoyer</button>
-        </div>
-    </form>
+        </form>
 
 
 
 
 
-</section>
+    </section>
 
+<?php } else { ?>
+    <a href="<?= Security::navigateTo('auth', 'login') ?>" class="nav-link mt-5" aria-current="page">
+        <i class="bi bi-box-arrow-in-right me-2"></i>
+        Connectez vous pour noter ce film !
+    </a>
 <?php } ?>
 
 
@@ -99,9 +104,9 @@ require_once _ROOTPATH_ . '/templates/header.php';
     <h3>liste des commentaires pour ce film</h3>
 
 
-    <?php  
+    <?php
 
-    // entité
+
     // repository
     // Récupérez les données de la note de l'utilisateur depuis la base de données
     // faire la boucle des commentaires 

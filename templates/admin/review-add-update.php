@@ -35,24 +35,29 @@ $movie = $movieRepository->findOneById($movieId);
 
         <div class="mb-3">
             <label for="user_id" class="form-label">Utilisateur</label>
-            <input type="text" class="form-control <?= (isset($errors['user_id']) ? 'is-invalid' : '') ?>" id="user_id" name="user_id" value="<?= $user->getNickname() ?>">
+            <input readonly type="hidden" class="form-control <?= (isset($errors['user_id']) ? 'is-invalid' : '') ?>" id="user_id" name="user_id" value="<?= $review['user_id'] ?>">
             <?php if (isset($errors['user_id'])) { ?>
                 <div class="invalid-feedback"><?= $errors['user_id'] ?></div>
             <?php } ?>
+            <p class="form-control"><?= $user->getNickname() ?></p>
         </div>
-        <div class="mb-3">
+        <div class=" mb-3">
             <label for="movie_id" class="form-label">Film</label>
-            <input type="text" class="form-control <?= (isset($errors['movie_id']) ? 'is-invalid' : '') ?>" id="movie_id" name="movie_id" value="<?= $movie->getName() ?>">
+            <input readonly type="hidden" class="form-control <?= (isset($errors['movie_id']) ? 'is-invalid' : '') ?>" id="movie_id" name="movie_id" value="<?= $review['movie_id'] ?>">
             <?php if (isset($errors['movie_id'])) { ?>
                 <div class="invalid-feedback"><?= $errors['movie_id'] ?></div>
             <?php } ?>
+            <p class="form-control"><?= $movie->getName() ?></p>
+
         </div>
         <div class="mb-3">
             <label for="rate" class="form-label">Note</label>
-            <input type="text" class="form-control <?= (isset($errors['rate']) ? 'is-invalid' : '') ?>" id="rate" name="rate" value="<?= $review['rate'] ?>">
+            <input readonly type="hidden" class="form-control <?= (isset($errors['rate']) ? 'is-invalid' : '') ?>" id="rate" name="rate" value="<?= $review['rate'] ?>">
             <?php if (isset($errors['rate'])) { ?>
                 <div class="invalid-feedback"><?= $errors['rate'] ?></div>
             <?php } ?>
+            <p class="form-control"><?= $review['rate'] ?></p>
+
         </div>
         <div class="mb-3">
             <label for="review" class="form-label">Commentaire</label>
@@ -63,16 +68,12 @@ $movie = $movieRepository->findOneById($movieId);
         </div>
         <div class="mb-3">
             <label for="approuved" class="form-label">Approuvé</label>
-            <input class="form-check-input" role="switch" type="checkbox" name="approuved" value="<?= $review['approuved'] ? 'checked' : '' ?>">
+            <input class="form-check-input" role="switch" type="checkbox" name="approuved" value="1" <?= $review['approuved'] !== 0 ? 'checked' : '' ?>>
             <?php if (isset($errors['approuved'])) { ?>
                 <div class="invalid-feedback"><?= $errors['approuved'] ?></div>
             <?php } ?>
         </div>
-          
 
-
-        <input id="add-director" type="button" value="Ajouter un réalisateur" class="btn btn-outline-primary btn-sm">
-        <!-- **************************************************************** -->
 
 
         <input type="submit" name="saveReview" class="btn btn-primary btn-sm" <?php if (isset($_GET['id'])) { ?> value="Modifier le commentaire" <?php } else { ?> value="Ajouter le commentaire" <?php } ?>>

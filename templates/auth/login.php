@@ -1,4 +1,8 @@
-<?php require_once dirname(__DIR__) . '/header.php'; ?>
+<?php
+
+use App\Security\Security;
+
+require_once dirname(__DIR__) . '/header.php'; ?>
 
 
 <h1>Login</h1>
@@ -19,9 +23,11 @@
             <label for="password" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="password" name="password">
         </div>
-
         <input type="submit" name="loginUser" class="btn btn-primary btn-sm" value="Se connecter">
-
 </form>
+<a href="<?= Security::navigateTo('user', 'register') ?>" class="nav-link mt-5" aria-current="page">
+    <i class="bi bi-person-fill-add me-2"></i>
+    Pas de compte, inscrivez-vous ici !
+</a>
 
 <?php require_once dirname(__DIR__) . '/footer.php'; ?>
