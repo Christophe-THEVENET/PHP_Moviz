@@ -1,0 +1,1 @@
+un nom de domaine n'est jamais écrit en dur dans un projet en prod
