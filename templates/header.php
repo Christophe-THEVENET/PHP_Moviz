@@ -4,6 +4,7 @@ use App\Security\Security;
 use App\Tools\NavigationTools;
 
 require_once _ROOTPATH_ . '/config.php';
+require_once _ROOTPATH_ . "/Api/config-api.php";
 
 $userNickname = isset($_SESSION['user']) ? $_SESSION['user']['nickname'] : null;
 ?>
