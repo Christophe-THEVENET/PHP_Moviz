@@ -5,7 +5,7 @@ $data = json_decode(file_get_contents('php://input'), true);
 $reviewId = $data['review_id'];
 
 try {
-    $pdo = new PDO('mysql:host=db;dbname=moviz_db', 'test', 'test');
+    $pdo = new PDO('mysql:host=db;dbname=_DB_NAME_', '_DB_USER_', '_DB_PASSWORD_');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare('DELETE FROM review WHERE id = :id');

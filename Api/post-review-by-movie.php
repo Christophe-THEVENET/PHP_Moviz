@@ -16,7 +16,7 @@ $approuved = (int)$dataArray['approuved'];
 
 try {
 
-    $pdo = new PDO('mysql:host=db;dbname=moviz_db', 'test', 'test');
+    $pdo = new PDO('mysql:host=db;dbname=_DB_NAME_', '_DB_USER_', '_DB_PASSWORD_');
 
     $stmt = $pdo->prepare('INSERT INTO review (user_id, movie_id, rate, review, approuved, created_at) VALUES (:user_id, :movie_id, :rate, :review, :approuved, NOW())');
 
