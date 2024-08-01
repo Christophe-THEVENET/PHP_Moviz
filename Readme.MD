@@ -1,34 +1,34 @@
-# Moviz PHP POO MVC   
-Révision des bases de PHP avec la POO et le MVC.
-Application de critique de films. L'administration du site est gérée par un back-office stylisée avec bootstrap.
+# Moviz PHP POO MVC
 
-Testez le formulaire d'ajout/modification de film  ou celui d'approbation des commentaires, il y a des fonctionnalités asynchrone.
+Application de publication et critique de films dans le but de revoir les bases de PHP avec la POO et le MVC. L'administration du site est gérée par un back-office stylisée avec bootstrap.
 
-- gestion des utilisateurs (login/register/logout)
-- publication de commentaires
-- crud des films
-- crud des réalisateurs
-- crud des utilisateurs
-- téléchargement d'images
-- backoffice sécurisé pour le crud de toutes les données
+Testez le formulaire d'ajout/modification de films ou celui d'approbation des commentaires, il y a des fonctionnalités asynchrone.
+
+-   Gestion des utilisateurs sécurisé (login/register/logout)
+-   Backoffice sécurisé pour le crud de toutes les données
+-   Publication de commentaires
+-   Téléchargement d'images
+-   Classes boites a outils
+-   MVC (Entités, Templates, Controleurs)
+-   POO (Encapsulation, Manipulation d'objets, fonctions et attributs de classe)
 
 ## Prérequis
 
-* docker engine
-  
+-   docker engine
+
 ## Installation
 
-
 ```markdown
-git clone https://github.com/Christophe-THEVENET/PHP_TechTrendz.git
+git clone https://github.com/Christophe-THEVENET/PHP_Moviz.git
 ```
 
 ```markdown
-cd PHP_TechTrendz/
+cd PHP_Moviz/
 ```
 
 #### Créer un fichier .env a la racine de l'appli
-- dans le fichier .env ajouter vos identifiants de connexion a la place de xxxxxxxxx
+
+-   dans le fichier .env ajouter vos identifiants de connexion a la place de xxxxxxxxx
 
 $$
 Pour-MariaDB
@@ -40,6 +40,7 @@ MYSQL_DATABASE="moviz_db"
 MYSQL_USER="xxxxxx"
 MYSQL_PASSWORD="xxxxxxx"
 ```
+
 $$
 Pour-phpMyAdmin
 $$
@@ -53,24 +54,51 @@ PMA_PASSWORD="xxxxxx"
 
 #### Créer les conteneurs docker
 
-
 ```markdown
 docker-compose up -d
 ```
+
 ## Utilisation
 
-
-url de phpMyAdmin:
+- Url de phpMyAdmin:
 <a href="http://localhost:8899/" target="_blank">http://localhost:8899/</a>
 
+-   Importer a l'aide de phpMyAdmin la base de donnée (fichier moviz_db.sql) fourni dans l'appli.
+  
 
-
-- importer a l'aide de phpMyAdmin la base de donnée (fichier techtrendz_db.sql) fourni dans 'appli.
-
-url de l'application:
+- Url de l'application:
 <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>
-
 
 ## Ajouter un administrateur
 
-* créer un utilisateur en selectionnant le rôle admin
+ ### ⚠️ Avertissement
+> **Pour accéder au backoffice il faut un utilisateur admin.**
+
+
+-   créer un utilisateur avec l'application
+-   Changer son role (ROLE_ADMIN) dans phpMyAdmin 
+  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        .great-vibes {
+            font-family: 'Great Vibes', cursive;
+            font-size : 46px;
+            letter-spacing: 6px;
+            text-align: center;
+            margin-top: 80px;
+            color: #758da8;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="great-vibes">Je vous souhaite une excellente expérience utilisateur !</h1>
+</body>
+</html>
+
+
