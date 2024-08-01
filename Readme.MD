@@ -79,26 +79,8 @@ docker-compose up -d
 -   Changer son role (ROLE_ADMIN) dans phpMyAdmin 
   
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <style>
-        .great-vibes {
-            font-family: 'Great Vibes', cursive;
-            font-size : 46px;
-            letter-spacing: 6px;
-            text-align: center;
-            margin-top: 80px;
-            color: #758da8;
-        }
-    </style>
-</head>
-<body>
-    <h1 class="great-vibes">Je vous souhaite une excellente expérience utilisateur !</h1>
-</body>
-</html>
+-------------------------
+
+ *Je vous souhaite une excellente expérience utilisateur !*
 
 
