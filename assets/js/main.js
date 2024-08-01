@@ -93,7 +93,7 @@ if (addDirectorButton) {
     });
 }
 // *************** DELETE DIRECTOR ***************************
-document.querySelectorAll('.delete-link').forEach(function(button) {
+document.querySelectorAll('.delete-link').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault(); // Empêche le formulaire d'être soumis normalement
 
@@ -213,4 +213,42 @@ formPostReview.addEventListener('submit', e => {
                 errorDiv.remove();
             }, 3000);
         });
+});
+
+// *************** DELETE REVIEW ***************************
+document.querySelectorAll('.delete-review').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        alert('confirmez la suppression de votre commentaire !');
+
+        let reviewId = parseInt(button.dataset.reviewId);
+        let div = this.closest('div');
+        let reviewBlock = div.parentNode;
+
+
+        fetch('http://localhost:8080/Api/delete-review.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                review_id: reviewId
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                 reviewBlock.remove();
+                 div.remove();
+                return response.json();
+            })
+            .then(data => {
+                console.log('Review deleted successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error deleting review:', error);
+            });
+    });
 });

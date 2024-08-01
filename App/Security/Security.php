@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\Review;
 use App\Entity\User;
 
 
@@ -39,5 +40,10 @@ class Security
     public static function navigateTo(string $controller, string $action): string
     {
         return 'index.php?controller=' . $controller . '&action=' . $action;
+    }
+
+    public static function isMyReview(int $currentUserId, Review $review): bool
+    {
+        return  $currentUserId === $review->getUserId();
     }
 }

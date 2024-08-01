@@ -127,11 +127,11 @@ require_once _ROOTPATH_ . '/templates/header.php';
     <?php
     // récup les commentaires approuvés pour ce film
     $reviewsByMovie = $reviewRepository->findAllByMovieId($movie->getId()); ?>
-  <?php  
-   if (!empty($reviewsByMovie)) { ?>
+    <?php
+    if (!empty($reviewsByMovie)) { ?>
 
-      <h3>liste des commentaires pour ce film</h3>
- <?php }
+        <h3>liste des commentaires pour ce film</h3>
+    <?php }
     foreach ($reviewsByMovie as $review) {
         // Générez le code HTML pour afficher les étoiles colorées
         $reviewRating =  $review->getRate();
@@ -164,6 +164,10 @@ require_once _ROOTPATH_ . '/templates/header.php';
                         </div>
                     </div>
                     <p class="comment-right-block"><?= $review->getReview() ?></p>
+                    <?php
+                    if (Security::isMyReview(Security::getCurrentUserId(), $review)) {  ?>
+                        <a class="delete-review" data-review-id="<?= $review->getId() ?>"><i class="bi bi-x-square-fill"></i></a>
+                    <?php }  ?>
                 </div>
             </div>
         </article>

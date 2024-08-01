@@ -2,11 +2,15 @@
 Révision des bases de PHP avec la POO et le MVC.
 Application de critique de films. L'administration du site est gérée par un back-office stylisée avec bootstrap.
 
+Testez le formulaire d'ajout/modification de film  ou celui d'approbation des commentaires, il y a des fonctionnalités asynchrone.
+
 - gestion des utilisateurs (login/register/logout)
-- gestion des catégories
-- gestion des articles
+- publication de commentaires
+- crud des films
+- crud des réalisateurs
+- crud des utilisateurs
 - téléchargement d'images
-- backoffice sécurisé pour le crud des articles
+- backoffice sécurisé pour le crud de toutes les données
 
 ## Prérequis
 
