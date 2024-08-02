@@ -14,7 +14,7 @@ $movieId = (int)$data['movie_id'];
 
 try {
 
-    $pdo = new PDO("mysql:dbname=" . _DB_NAME_ . ";host=db;charset=utf8mb4", _DB_USER_, _DB_PASSWORD_);
+    $pdo = new PDO("mysql:dbname=" . _DB_NAME_ . ";host=" . _DB_HOST_ . ";charset=utf8mb4", _DB_USER_, _DB_PASSWORD_);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare('DELETE FROM movie_director WHERE director_id = :director_id AND movie_id = :movie_id');

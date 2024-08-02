@@ -17,7 +17,7 @@ $approuved = (int)$data['approuved'];
 
 try {
 
-    $pdo = new PDO("mysql:dbname=" . _DB_NAME_ . ";host=db;charset=utf8mb4", _DB_USER_, _DB_PASSWORD_);
+    $pdo = new PDO("mysql:dbname=" . _DB_NAME_ . ";host=" . _DB_HOST_ . ";charset=utf8mb4", _DB_USER_, _DB_PASSWORD_);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare('INSERT INTO review (user_id, movie_id, rate, review, approuved, created_at) VALUES (:user_id, :movie_id, :rate, :review, :approuved, NOW())');
@@ -27,7 +27,6 @@ try {
     $stmt->bindParam(':rate', $rate, $pdo::PARAM_INT);
     $stmt->bindParam(':review', $review, $pdo::PARAM_STR);
     $stmt->bindParam(':approuved', $approuved, $pdo::PARAM_INT);
-
     $result = $stmt->execute();
 
     if (!$result) {
