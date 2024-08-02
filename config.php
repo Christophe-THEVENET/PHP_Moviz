@@ -1,5 +1,7 @@
 <?php
+
 $dbConfig = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . '/.env');
+
 
 define("ROLE_USER", "ROLE_USER");
 define("ROLE_ADMIN", "ROLE_ADMIN");
