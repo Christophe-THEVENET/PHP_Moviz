@@ -1,22 +1,24 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
 
-$dataArray = json_decode(file_get_contents('php://input'), true);
+$data = json_decode(file_get_contents('php://input'), true);
 
-if (!isset($dataArray['rate']) || !isset($dataArray['user_id']) || !isset($dataArray['movie_id']) || !isset($dataArray['review']) || !isset($dataArray['approuved'])) {
+if (!isset($data['rate']) || !isset($data['user_id']) || !isset($data['movie_id']) || !isset($data['review']) || !isset($data['approuved'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Missing required fields']);
     exit;
 }
 
-$userId = (int)$dataArray['user_id'];
-$movieId = (int)$dataArray['movie_id'];
-$rate = (int)$dataArray['rate'];
-$review = $dataArray['review'];
-$approuved = (int)$dataArray['approuved'];
+$userId = (int)$data['user_id'];
+$movieId = (int)$data['movie_id'];
+$rate = (int)$data['rate'];
+$review = $data['review'];
+$approuved = (int)$data['approuved'];
 
 try {
 
-    $pdo = new PDO('mysql:host=db;dbname=moviz_db', 'test', 'test');
+    $pdo = new PDO("mysql:dbname=" . _DB_NAME_ . ";host=db;charset=utf8mb4", _DB_USER_, _DB_PASSWORD_);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->prepare('INSERT INTO review (user_id, movie_id, rate, review, approuved, created_at) VALUES (:user_id, :movie_id, :rate, :review, :approuved, NOW())');
 
@@ -40,3 +42,4 @@ try {
 } catch (PDOException $e) {
     error_log($e->getMessage());
 }
+

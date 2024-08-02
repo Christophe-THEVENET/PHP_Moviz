@@ -92,36 +92,7 @@ if (addDirectorButton) {
         });
     });
 }
-// *************** DELETE DIRECTOR ***************************
-document.querySelectorAll('.delete-link').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault(); // Empêche le formulaire d'être soumis normalement
 
-        let div = this.closest('div');
-        let directorId = div.querySelector('input[name="director_id"]').value;
-        let movieId = div.querySelector('input[name="movie_id"]').value;
-
-        // Envoyez une requête AJAX au script PHP
-        fetch('http://localhost:8080/Api/delete-link-director-movie.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `director_id=${directorId}&movie_id=${movieId}`
-        })
-            .then(response => {
-                div.remove();
-                if (response.ok) {
-                    console.log('Le lien a été supprimé avec succès.');
-                } else {
-                    console.error("Une erreur s'est produite lors de la suppression du lien.");
-                }
-            })
-            .catch(error => {
-                console.error("Une erreur s'est produite lors de la requête AJAX :", error);
-            });
-    });
-});
 // *************** ETOILE NOTATION ***************************
 // Sélectionnez tous les éléments d'entrée de type radio avec le nom "rate"
 const rateRadios = document.querySelectorAll('input[name="rate"]');
@@ -140,33 +111,88 @@ rateRadios.forEach(radio => {
     });
 });
 
+// *******************************************************************************
+// ************************ REQSUETES ASYNCHRONE********************************
+// *******************************************************************************
+
+// *************** DELETE DIRECTOR ***************************
+document.querySelectorAll('.delete-link').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        let div = this.closest('div');
+        let directorId = div.querySelector('input[name="director_id"]').value;
+        let movieId = div.querySelector('input[name="movie_id"]').value;
+        let data = {};
+        data.director_id = directorId;
+        data.movie_id = movieId;
+
+        fetch('http://localhost:8080/Api/delete-link-director-movie.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La réponse du réseau n'était pas correcte");
+                } else {
+                    div.remove();
+                    return response.text(); // Utilise .text() pour inspecter la réponse brute
+                }
+            })
+            .then(text => {
+                try {
+                    const json = JSON.parse(text); // Essaie de convertir la réponse en JSON
+                    console.log(json);
+                } catch (error) {
+                    console.error("La réponse n'est pas un JSON valide :", text);
+                }
+            })
+            .catch(error => {
+                console.error("Une erreur s'est produite lors de la requête AJAX :", error);
+            });
+    });
+});
 // *************** APPROUVED REVIEW ***************************
 let approuvedButtons = document.querySelectorAll('input[name="approuved"]');
 approuvedButtons.forEach(approuvedButton => {
     approuvedButton.addEventListener('change', () => {
+        // récup la review et le approuved avec les dataset
         let reviewId = approuvedButton.dataset.id;
-
         let reviewApprouved = approuvedButton.checked ? 1 : 0;
+        let data = {};
+        data.review_id = parseInt(reviewId);
+        data.review_approuved = parseInt(reviewApprouved);
 
         fetch('http://localhost:8080/Api/change-approuved-review.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
-            body: `review_id=${reviewId}&review_approuved=${reviewApprouved}`
+            body: JSON.stringify(data)
         })
-            .then(function(response) {
-                // a traiter
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La réponse du réseau n'était pas correcte");
+                }
+                return response.text(); // Utilise .text() pour inspecter la réponse brute
             })
-            .catch(function(error) {
-                // a traiter
-            });
+            .then(text => {
+                try {
+                    const json = JSON.parse(text); // Essaie de convertir la réponse en JSON
+                    console.log(json);
+                } catch (error) {
+                    console.error("La réponse n'est pas un JSON valide :", text);
+                }
+            })
+            .catch(error =>
+                console.error("Il y a eu un problème avec l'opération de fetch :", error)
+            );
     });
 });
-
 // *************** POST REVIEW ***************************
 let formPostReview = document.querySelector('.form-post-review');
-
 formPostReview.addEventListener('submit', e => {
     e.preventDefault();
     let formData = new FormData(e.target);
@@ -214,34 +240,31 @@ formPostReview.addEventListener('submit', e => {
             }, 3000);
         });
 });
-
 // *************** DELETE REVIEW ***************************
 document.querySelectorAll('.delete-review').forEach(button => {
     button.addEventListener('click', function(e) {
         e.preventDefault();
-
         alert('confirmez la suppression de votre commentaire !');
 
-        let reviewId = parseInt(button.dataset.reviewId);
+        let reviewId = button.dataset.reviewId;
         let div = this.closest('div');
         let reviewBlock = div.parentNode;
-
+        let data = {};
+        data.review_id = reviewId
 
         fetch('http://localhost:8080/Api/delete-review.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                review_id: reviewId
-            })
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                 reviewBlock.remove();
-                 div.remove();
+                reviewBlock.remove();
+                div.remove();
                 return response.json();
             })
             .then(data => {
